@@ -25,7 +25,7 @@ const useStyles = makeStyles({
     },
   });
 
-const MemberShow = ({members}) => {
+const BillShow = ({bills}) => {
   const classes = useStyles();
 
   return (
@@ -34,9 +34,9 @@ const MemberShow = ({members}) => {
     <Autocomplete
         multiple
         id="tags-standard"
-        options={members}
-        getOptionLabel={(option) => option.first_name}
-        defaultValue={members}
+        options={bills}
+        getOptionLabel={(option) => option.bill_slug}
+        defaultValue={bills}
         renderInput={(params) => (
           <TextField
             {...params}
@@ -47,13 +47,13 @@ const MemberShow = ({members}) => {
         )}
     />
 
-    {members.map((member) => 
+    {bills.map((bill) => 
         <Card className={classes.root} variant="outlined">
        
             <CardContent>
 
                 <Typography className={classes.title} color="textSecondary" gutterBottom>
-                    {member.last_name}, {member.first_name}
+                    {bill.bill_slug} - {bill.title}
                 </Typography>
 
                 <Typography variant="h5" component="h2">
@@ -80,6 +80,4 @@ const MemberShow = ({members}) => {
     </div>
   )
 }
-export default MemberShow
-
-    
+export default BillShow

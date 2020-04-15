@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import MemberShow from '../components/MemberShow'
+import BillShow from '../components/BillShow'
 import config from '../config'
 
 const myHeaders = {
@@ -14,14 +14,18 @@ const myInit = {
 }
 
 const SenateMembers = () => {
-    const [members, setMembers] = useState([])
+    const [bills, setBills] = useState([])
+    const [chamber, setChamber] = useState('both')
+    const [type, setType] = useState('passed')
     const [hasError, setErrors] = useState(false)
     
     async function fetchData() {
-        const res = await fetch("https://api.propublica.org/congress/v1/116/senate/members.json", myInit);
+        const res = await fetch(`https://api.propublica.org/congress/v1/116/${chamber}/bills/${type}.json`, myInit);
         res
           .json()
-          .then(res => setMembers(res['results'][0]['members']))
+          .then(res => setBills(res['results'][0]['bills']))
+          .then(res => setChamber(res))
+          .then(res => setType(res))
           .catch(err => setErrors(err));
     }
     
@@ -29,10 +33,10 @@ const SenateMembers = () => {
         fetchData();
     }, []);
     
-    console.log(members)
+    console.log(bills)
     return (
         <div>
-            <MemberShow members={members} />
+            <BillShow bills={bills}/>
         </div>
     );
 };
