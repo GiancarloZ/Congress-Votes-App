@@ -13,7 +13,7 @@ const myInit = {
     cache: 'default'
 }
 
-const SenateMembers = () => {
+const Bills = () => {
     const [bills, setBills] = useState([])
     const [chamber, setChamber] = useState('both')
     const [type, setType] = useState('passed')
@@ -41,4 +41,4 @@ const SenateMembers = () => {
     );
 };
 
-export default SenateMembers;
+export default Bills;

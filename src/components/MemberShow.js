@@ -1,85 +1,84 @@
 import React from 'react'
-import Autocomplete from '@material-ui/lab/Autocomplete';
 import { makeStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import { Box } from '@material-ui/core';
+import MemberDetail from './MemberDetail'
+import ExpansionPanel from '@material-ui/core/ExpansionPanel';
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 
 const useStyles = makeStyles({
     root: {
-      minWidth: 275,
-    },
-    bullet: {
-      display: 'inline-block',
-      margin: '0 2px',
-      transform: 'scale(0.8)',
+      width:255,
+      padding: 0,
+      fontSize: 10,
     },
     title: {
-      fontSize: 14,
+        width: 170,
+        textAlign: "left",
+        fontSize: 11,
+
+    },
+    sub: {
+        textAlign: "right",
+        fontSize: 9,
     },
     pos: {
       marginBottom: 12,
     },
-  });
+});
 
 const MemberShow = ({members}) => {
   const classes = useStyles();
+  const [expanded, setExpanded] = React.useState(false);
+
+  const handleChange = (panel) => (event, isExpanded) => {
+    setExpanded(isExpanded ? panel : false);
+  };
 
   return (
-    <div className={classes.root}>
 
-    <Autocomplete
-        multiple
-        id="tags-standard"
-        options={members}
-        getOptionLabel={(option) => option.first_name}
-        defaultValue={members}
-        renderInput={(params) => (
-          <TextField
-            {...params}
-            variant="standard"
-            label="Select Members"
-            placeholder="You can choose as many as you'd like"
-          />
-        )}
-    />
+    <div >
 
-    {members.map((member) => 
-        <Card className={classes.root} variant="outlined">
-       
-            <CardContent>
+        {members.map((member) => 
+           
+      
+                  <ExpansionPanel expanded={expanded === member.id} onChange={handleChange(member.id)}>
+                  <ExpansionPanelSummary
+                    // expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel1bh-content"
+                    id="panel1bh-header"
+                  >         
+                    <Typography className={classes.root}>
+                    
+                    <Box className={classes.title} >
+                    {member.first_name + " " + member.last_name} - ({member.party})-{member.state} 
+                    </Box>
+                    </Typography>
 
-                <Typography className={classes.title} color="textSecondary" gutterBottom>
-                    {member.last_name}, {member.first_name}
-                </Typography>
-
-                <Typography variant="h5" component="h2">
-        
-                </Typography>
-
-                <Typography className={classes.pos} color="textSecondary">
-                
-                </Typography>
-
-                <Typography variant="body2" component="p">
-                
-                    <br />
+                    {/* <Typography >
+                        <Box className={classes.sub}>
+                        Missed: {member.missed_votes_pct}%<br></br>
+                        w/ Party: {member.votes_with_party_pct}%<br></br>
+                        a/ Party: {member.votes_against_party_pct}%<br></br>
+                        </Box>  
+                     
+                    </Typography> */}
+                    </ExpansionPanelSummary>
+                    <ExpansionPanelDetails>
+                      <MemberDetail  member={member}/>
+                   </ExpansionPanelDetails>
+                  </ExpansionPanel>
+ 
             
-                </Typography>
-            </CardContent>
-       
-        <CardActions>
-            <Button size="small">See More</Button>
-        </CardActions>
-        </Card>
-    )}
-
+        )}
+  
     </div>
+
   )
+  
 }
+
 export default MemberShow
 
     

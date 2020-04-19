@@ -7,7 +7,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-
+import BillDetail from './BillDetail'
 const useStyles = makeStyles({
     root: {
       minWidth: 275,
@@ -24,9 +24,17 @@ const useStyles = makeStyles({
       marginBottom: 12,
     },
   });
-
+const handleOnClick = (event) => {
+    return(
+      <div>
+          <BillDetail bill={event.target.value} />
+      </div>
+    )
+}
 const BillShow = ({bills}) => {
   const classes = useStyles();
+  
+ 
 
   return (
     <div className={classes.root}>
@@ -51,28 +59,13 @@ const BillShow = ({bills}) => {
         <Card className={classes.root} variant="outlined">
        
             <CardContent>
-
                 <Typography className={classes.title} color="textSecondary" gutterBottom>
-                    {bill.bill_slug} - {bill.title}
-                </Typography>
-
-                <Typography variant="h5" component="h2">
-        
-                </Typography>
-
-                <Typography className={classes.pos} color="textSecondary">
-                
-                </Typography>
-
-                <Typography variant="body2" component="p">
-                
-                    <br />
-            
+                    {bill.bill_slug} - {bill.short_title}
                 </Typography>
             </CardContent>
        
-        <CardActions>
-            <Button size="small">See More</Button>
+        <CardActions onClick={(event) => handleOnClick(event)}>
+            <Button size="small" >See More</Button>
         </CardActions>
         </Card>
     )}
