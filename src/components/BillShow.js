@@ -49,7 +49,7 @@ const BillShow = ({bills}) => {
           <TextField
             {...params}
             variant="standard"
-            label="Select Members"
+            label="Select Bills"
             placeholder="You can choose as many as you'd like"
           />
         )}
