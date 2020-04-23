@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import config from '../config'
-
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
+import Avatar from '@material-ui/core/Avatar';
 const myHeaders = {
     'X-API-Key': config.PP_KEY
 }
@@ -11,6 +13,29 @@ const myInit = {
     mode: 'cors',
     cache: 'default'
 }
+
+
+const useStyles = makeStyles({
+    root: {
+      width:255,
+      padding: 0,
+      fontSize: 10,
+    },
+    title: {
+        width: 170,
+        textAlign: "left",
+        fontSize: 11,
+  
+    },
+    sub: {
+        alignItem: "right !important",
+        fontSize: 9,
+    },
+    pos: {
+      marginBottom: 12,
+    },
+});
+  
 const AllVotes = (prop) => {
     const [id, setId] = useState(prop['member']['id'])
     const [hasError, setErrors] = useState(false)
@@ -102,15 +127,15 @@ const Headshot = (prop) => {
     const [hasError, setErrors] = useState(false)
     console.log(id.charAt(0))
     const [headshot, setHeadshot] = useState(['/dummy-profile-pic.png'])
-    
+    const classes = useStyles();
     useEffect(() => {
         setHeadshot(`https://bioguideretro.congress.gov/Static_Files/images/photos/${id.charAt(0)}/${id}.jpg`)
     }, []);
    
     console.log(headshot)
     return (
-        <div>
-            <img alt={prop.first_name} className='left floated medium ui image' src={headshot} width="50"/>
+        <div className={classes.sub}>
+            <Avatar alt={prop.first_name}  src={headshot} />
         </div>
     )
 }
@@ -119,13 +144,12 @@ const AllMemberInfo = (prop) => {
     const [id, setId] = useState(prop['member']['id'])
     const [hasError, setErrors] = useState(false)
     const [member, setMember] = useState([])
-    // AllVotes(prop);
-    // AllStatements(prop);
-    // AllBills(prop);
-    // Headshot(prop);
+    const classes = useStyles();
+
     console.log(id)
     console.log(member)
-
+    console.log(prop)
+  
     async function fetchMember() {
         const res = await fetch(`https://api.propublica.org/congress/v1/members/${id}.json`, myInit);
         res
