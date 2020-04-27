@@ -28,6 +28,7 @@ const useStyles = makeStyles({
 });
 
 const MemberShow = ({members}) => {
+  console.log(members)
   const classes = useStyles();
   // let twitter
   // let facebook
@@ -109,6 +110,7 @@ const MemberShow = ({members}) => {
     },
    
   }))(MuiExpansionPanelDetails);
+
   return (
 
     <div  className={classes.root}>
@@ -134,22 +136,17 @@ const MemberShow = ({members}) => {
                       </Icon> */}
                       {member.first_name + " " + member.last_name} - ({member.party})-{member.state} 
                       <br></br> {member.title}  
-                      <Headshot member={member}/>
+                      {/* {Headshot(member)} */}
             
  
                     </ExpansionPanelSummary>
                   
                     <ExpansionPanelDetails>
-                      {/* <AllMemberInfo  member={member}/> */}
-                          Next Election: {member['next_election']}<br></br>
+                     
                           Missed: {member['missed_votes_pct']}%<br></br>
                           w/ Party: {member['votes_with_party_pct']}%<br></br>
                           a/ Party: {member['votes_against_party_pct']}%<br></br>    
-                          {/* <p>Current Role: {member.roles[0].title}{member.roles[1].congress === member.roles[0].congress ? ', ' + member.roles[1].title : ''} - {member.roles[0].state} {member.roles[0].district ? member.roles[0].district : ''}</p>
-                          <p>In office until {member.roles[0].end_date.substring(0,4)}</p>
-                          <p>First joined congress in {member.roles[member.roles.length - 1].start_date.substring(0,4)} ({member.roles[member.roles.length - 1].chamber} - {member.roles[member.roles.length - 1].state})</p>
-                          <p>Address: {member.roles[0].office}</p>
-                          <p>Phone: {member.roles[0].phone}</p> */}
+                           <AllMemberInfo  member={member}/>
                     </ExpansionPanelDetails>
             
                   </ExpansionPanel>

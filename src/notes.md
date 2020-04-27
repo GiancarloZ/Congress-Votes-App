@@ -21,3 +21,35 @@ Member first drop down side arrow votes bar leads to a slim column list of recen
 Make bills area a selectable card
 
 next_election: "2020" if true should create a border indicating upcoming election
+
+Don't let member card be inside search and form paper because it re-fetches the people and their images whenever you pick or delete a person
+
+REDUX STORE WHAT I WANT TO DO:
+Upon loading:
+    Grab senate members
+    Grab house members
+    Iterate over each member and pass ID through to Votes, Statements, RecentBils, Headshot
+    Store each member and its representing votes, statemtents, recentbills, headshots as keys within an array withinn that member that is inside of an array that lists all members
+
+    Members: [
+        member1: [
+            {
+                votes:[
+                    {
+
+                    }
+                ]
+                statements:[
+                    {
+
+                    }
+                ]
+                recentBills:[
+                    {
+
+                    }
+                ]
+                headshot: '   ',
+            }
+        ]
+    ]

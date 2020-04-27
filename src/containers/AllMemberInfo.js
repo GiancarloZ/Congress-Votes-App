@@ -161,13 +161,22 @@ const AllMemberInfo = (prop) => {
     useEffect(() => {
         fetchMember();
     }, []);
-  
+    console.log(member)
+ 
     return (
         <div>
             {AllVotes(prop)}
             {AllStatements(prop)}
             {AllBills(prop)}
-            {Headshot(prop)}
+            
+            {/* <p>Current Role: {prop['roles'][0]['title']}{member['roles'][1]['congress'] === member['roles'][0]['congress'] ? ', ' + member['roles'][1]['title']: ''} - {member['roles'][0]['state']} {member['roles'][0]['district'] ? member['roles'][0]['district'] : ''}</p>
+            <p>In office until {prop['roles'][0]['end_date'].substring(0,4)}</p>
+            <p>Address: {prop['roles'][0]['office']}</p>
+            <p>Phone: {prop['roles'][0]['phone']}</p> */}
+            {/* <p>Current Role: {member['roles'][0]['title']}{member['roles'][1]['congress'] === member['roles'][0]['congress'] ? ', ' + member['roles'][1]['title']: ''} - {member['roles'][0]['state']} {member['roles'][0]['district'] ? member['roles'][0]['district'] : ''}</p>
+                          <p>In office until {member['roles'][0]['end_date'].substring(0,4)}</p>
+                          <p>Address: {member['roles'][0]['office']}</p>
+                          <p>Phone: {member['roles'][0]['phone']}</p> */}
         </div>
     )
 

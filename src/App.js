@@ -43,9 +43,9 @@ const App = () => {
           </Grid>
     
         <Grid item xs={6} sm={3}>
-          <Paper className={classes.paper}>
+        
             <SenateMembers/>
-          </Paper>
+         
         </Grid>
         <Grid item xs={6} sm={6}>
           <Paper className={classes.paper}>
