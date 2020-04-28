@@ -1,19 +1,13 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import { Box } from '@material-ui/core';
-import MemberDetail from './MemberDetail'
-import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-import AllMemberInfo from '../containers/AllMemberInfo'
-import Headshot from '../containers/AllMemberInfo'
-import Avatar from '@material-ui/core/Avatar';
+import {AllMemberInfo} from '../containers/AllMemberInfo'
+import Headshot from '../containers/Headshot'
 import { withStyles } from '@material-ui/core/styles';
 import MuiExpansionPanel from '@material-ui/core/ExpansionPanel';
 import MuiExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import MuiExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import Button from '@material-ui/core/Button';
+
 const useStyles = makeStyles({
     root: {
       width:265,
@@ -117,7 +111,7 @@ const MemberShow = ({members}) => {
 
         {members.map((member) => 
            
-
+                 
                   <ExpansionPanel  >
                     <ExpansionPanelSummary
                       // expandIcon={<ExpandMoreIcon />}
@@ -127,18 +121,14 @@ const MemberShow = ({members}) => {
                       // expandIcon={ <Headshot  member={member} />}
                     >    
                       {/* <Icon classes={{root: classes.iconRoot}}> */}
-                        <Button 
-                            href="/Empty Oval.jpg">
-                       
-                        </Button> 
-                                      {/* <img alt='oval'  src="/Empty Oval.jpg" /> */}
+                      {/* <AllMemberInfo  member={member}/> */}
+                        {/* <img alt='oval'  src="/Empty Oval.jpg" /> */}
                         {/* <img className={classes.imageIcon} src="/Empty Oval.jpg"/>
                       </Icon> */}
                       {member.first_name + " " + member.last_name} - ({member.party})-{member.state} 
                       <br></br> {member.title}  
-                      {/* {Headshot(member)} */}
+                      <Headshot prop={member}/>
             
- 
                     </ExpansionPanelSummary>
                   
                     <ExpansionPanelDetails>
@@ -146,7 +136,7 @@ const MemberShow = ({members}) => {
                           Missed: {member['missed_votes_pct']}%<br></br>
                           w/ Party: {member['votes_with_party_pct']}%<br></br>
                           a/ Party: {member['votes_against_party_pct']}%<br></br>    
-                           <AllMemberInfo  member={member}/>
+                          
                     </ExpansionPanelDetails>
             
                   </ExpansionPanel>

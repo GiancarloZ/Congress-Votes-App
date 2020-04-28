@@ -1,73 +1,101 @@
 import React from 'react'
-import Autocomplete from '@material-ui/lab/Autocomplete';
 import { makeStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
+import { withStyles } from '@material-ui/core/styles';
+import MuiExpansionPanel from '@material-ui/core/ExpansionPanel';
+import MuiExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import MuiExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import BillDetail from './BillDetail'
+
 const useStyles = makeStyles({
-    root: {
-      minWidth: 275,
-    },
-    bullet: {
-      display: 'inline-block',
-      margin: '0 2px',
-      transform: 'scale(0.8)',
-    },
-    title: {
-      fontSize: 14,
-    },
-    pos: {
-      marginBottom: 12,
-    },
-  });
-const handleOnClick = (event) => {
-    return(
-      <div>
-          <BillDetail bill={event.target.value} />
-      </div>
-    )
-}
+  root: {
+    width:580,
+    padding: 0,
+    fontSize: 10,
+    margin: 0,
+  },
+  head: {
+    textAlign: 'right',
+  },
+  
+});
+
 const BillShow = ({bills}) => {
   const classes = useStyles();
+  const ExpansionPanel = withStyles({
+    root: {
+      width:580,
+      padding: 0,
+      fontSize: 10,
+      margin: 0,
+    //   border: '1px solid rgba(0, 0, 0, .125)',
+    //   boxShadow: 'none',
+    //   '&:not(:last-child)': {
+    //     borderBottom: 0,
+    //   },
+    //   '&:before': {
+    //     display: 'none',
+    //   },
+    //   '&$expanded': {
+    //     margin: 'auto',
+    //   },
+    },
   
+  })(MuiExpansionPanel);
+  
+  const ExpansionPanelSummary = withStyles({
+    root: {
+      width: 580,
+      padding: 0,
+      fontSize: 10,
+      margin: 0,
+    },
+    content: {
+      width: 580,
+      padding: 0,
+      fontSize: 12,
+      margin: 0,
+      height: 'auto',
+      textAlign: 'left'
+    },
+    label: {
+      alignItems: 'right',
+    },
+   
+  })(MuiExpansionPanelSummary);
+  
+  const ExpansionPanelDetails = withStyles((theme) => ({
+    root: {
+        width:580,
+        padding: 0,
+        margin: 0,
+        minHeight: 48,
+        textAlign: "left",
+        fontSize: 11,
+    },
+   
+  }))(MuiExpansionPanelDetails);
  
 
   return (
     <div className={classes.root}>
 
-    <Autocomplete
-        multiple
-        id="tags-standard"
-        options={bills}
-        getOptionLabel={(option) => option.bill_slug}
-        defaultValue={bills}
-        renderInput={(params) => (
-          <TextField
-            {...params}
-            variant="standard"
-            label="Select Bills"
-            placeholder="You can choose as many as you'd like"
-          />
-        )}
-    />
-
     {bills.map((bill) => 
-        <Card className={classes.root} variant="outlined">
-       
-            <CardContent>
-                <Typography className={classes.title} color="textSecondary" gutterBottom>
-                    {bill.bill_slug} - {bill.short_title}
-                </Typography>
-            </CardContent>
-       
-        <CardActions onClick={(event) => handleOnClick(event)}>
-            <Button size="small" >See More</Button>
-        </CardActions>
-        </Card>
+        <ExpansionPanel  >
+          <ExpansionPanelSummary
+            aria-controls="panel1bh-content"
+            id="panel1bh-header"
+          > 
+            <b>{bill.number}</b>: {bill.title}<br></br>
+            <b>Sponsor:</b> {bill.sponsor_name} ({bill.sponsor_party}) - {bill.sponsor_state} {bill.sponsor_title}
+          </ExpansionPanelSummary>
+                    
+          <ExpansionPanelDetails>
+                    
+          <b>Summary:</b> {bill.summary}<br></br>
+          <b>Committee:</b>{bill.committees}                
+          </ExpansionPanelDetails>
+            
+        </ExpansionPanel>
     )}
 
     </div>

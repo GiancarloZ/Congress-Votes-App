@@ -3,6 +3,8 @@ import config from '../config'
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
+import Button from '@material-ui/core/Button';
+
 const myHeaders = {
     'X-API-Key': config.PP_KEY
 }
@@ -36,7 +38,7 @@ const useStyles = makeStyles({
     },
 });
   
-const AllVotes = (prop) => {
+export const AllVotes = (prop) => {
     const [id, setId] = useState(prop['member']['id'])
     const [hasError, setErrors] = useState(false)
 
@@ -66,8 +68,8 @@ const AllVotes = (prop) => {
 
 } 
 
-const AllStatements = (prop) => {
-    const [id, setId] = useState(prop['member']['id'])
+export const AllStatements = (prop) => {
+    const [id, setId] = useState(prop['id'])
     const [hasError, setErrors] = useState(false)
     console.log(id)
     const [statements, setStatements] = useState([])
@@ -94,7 +96,7 @@ const AllStatements = (prop) => {
 } 
 
   
-const AllBills = (prop) => {
+export const AllBills = (prop) => {
     const [id, setId] = useState(prop['member']['id'])
     const [hasError, setErrors] = useState(false)
     console.log(id)
@@ -122,10 +124,12 @@ const AllBills = (prop) => {
 
 } 
 
-const Headshot = (prop) => {
-    const [id, setId] = useState(prop['member']['id'])
+export const Headshot = (prop) => {
+    console.log(prop)
+
+    const [id, setId] = useState(prop['id'])
     const [hasError, setErrors] = useState(false)
-    console.log(id.charAt(0))
+    
     const [headshot, setHeadshot] = useState(['/dummy-profile-pic.png'])
     const classes = useStyles();
     useEffect(() => {
@@ -141,7 +145,7 @@ const Headshot = (prop) => {
 }
 
 const AllMemberInfo = (prop) => {
-    const [id, setId] = useState(prop['member']['id'])
+    const [id, setId] = useState(prop['id'])
     const [hasError, setErrors] = useState(false)
     const [member, setMember] = useState([])
     const classes = useStyles();
@@ -168,7 +172,10 @@ const AllMemberInfo = (prop) => {
             {AllVotes(prop)}
             {AllStatements(prop)}
             {AllBills(prop)}
-            
+          
+            <Button 
+                href="/Empty Oval.jpg">
+            </Button> 
             {/* <p>Current Role: {prop['roles'][0]['title']}{member['roles'][1]['congress'] === member['roles'][0]['congress'] ? ', ' + member['roles'][1]['title']: ''} - {member['roles'][0]['state']} {member['roles'][0]['district'] ? member['roles'][0]['district'] : ''}</p>
             <p>In office until {prop['roles'][0]['end_date'].substring(0,4)}</p>
             <p>Address: {prop['roles'][0]['office']}</p>

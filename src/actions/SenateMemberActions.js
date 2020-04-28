@@ -37,7 +37,7 @@ const SenateMembers = () => {
     const classes = useStyles();
     console.log(members)
   
-    function fetchSenate() {
+    function fetchMember() {
         return dispatch => {
             dispatch({
                 type: 'LOADING_SENATE_MEMBERS',
@@ -47,7 +47,7 @@ const SenateMembers = () => {
                 .then(res => 
                     dispatch({
                     type: "ADD_SENATE_MEMBERS",
-                    members: res['results'][0]['members']
+                    members: res['results'][0]['members'],
                 }))
                 .catch(error => console.log(error)
                 );
@@ -55,14 +55,13 @@ const SenateMembers = () => {
     }
 
     useEffect(() => {
-        dispatch(fetchSenate());
+        dispatch(fetchMember());
     }, []);
 
     const handleChange = (event, value) => {
         setSelectedMembers(value)
     }
     
-    console.log(members)
     return (
         
         <div  className={classes.root}>

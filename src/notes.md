@@ -53,3 +53,37 @@ Upon loading:
             }
         ]
     ]
+const initialState = {
+    houseMembers: [{
+        members: [{
+            member: [{}],
+            bills: [{}],
+            statement: [{}],
+            headshot: 'dummy-profile-pic'
+        }]
+    }],
+    senateMember: [{
+        members: [{
+            member: [{}],
+            bills: [{}],
+            statement: [{}],
+            headshot: 'dummy-profile-pic'
+        }]
+    }],
+    loading: false 
+};
+
+
+-Create grid for bills and members cards so you can have everything set up in designated spots. 
+-For bill text summary, make it a field for scrolling so it doesnt expand the entire length/height.
+
+-Make bills/members autocomple have checkboxes on left (will actually be bubble icon with pencil fill in as checked) and not remove dropdown when clicking a bill/member. 
+
+-Can also make a more intense filter. I want to be able to see under members "co-sponsored bills" where you can click an arrow next to the bill and it sends it to the 
+  bills filter page as a selected bill. (using setSelectedBill? ) and maybe vice versa under bills "sponsor" can have arrow and be clicked to include in the corresponding setSelectedMember column (house or sentate)
+
+-
+
+
+
+

@@ -4,7 +4,7 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import SenateMembers from './actions/SenateMemberActions'
 import HouseMembers from './actions/HouseMemberActions'
-
+import Bills from './actions/BillsActions'
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -24,7 +24,7 @@ const TestApp = () => {
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      <Grid container spacing={3}>
+      <Grid container spacing={4}>
         
           <Grid item xs={12}>
             <Paper className={classes.header}>116th Congress</Paper>
@@ -40,13 +40,13 @@ const TestApp = () => {
           </Grid>
     
         <Grid item xs={6} sm={3}>
-        
+          <Paper className={classes.paper}>
             <SenateMembers/>
-         
+          </Paper>
         </Grid>
         <Grid item xs={6} sm={6}>
           <Paper className={classes.paper}>
-            {/* <Bills/> */}
+            <Bills/>
           </Paper>
         </Grid>
         <Grid item xs={6} sm={3}>

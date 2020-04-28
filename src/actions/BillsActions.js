@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import config from '../config'
 import { useDispatch, useSelector } from "react-redux";
-import MemberShow from '../components/MemberShow'
+import BillShow from '../components/BillShow'
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
@@ -31,24 +31,27 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const HouseMembers = () => {
-    const members = useSelector(state => state.houseMembers)
-    const [selectedMembers, setSelectedMembers] = useState([])
+const Bills = () => {
+    const bills = useSelector(state => state.bills)
+    const [chamber, setChamber] = useState('both')
+    const [type, setType] = useState('passed')
+    const [hasError, setErrors] = useState(false)
+    const [selectedBills, setSelectedBills] = useState([])
     const dispatch = useDispatch();
     const classes = useStyles();
-    console.log(members)
+    console.log(bills)
 
-    function fetchMember() {
+    function fetchBills() {
         return dispatch => {
             dispatch({
-                type: 'LOADING_HOUSE_MEMBERS',
+                type: 'LOADING_BILLS',
               });
-            fetch("https://api.propublica.org/congress/v1/116/house/members.json", myInit)
+            fetch(`https://api.propublica.org/congress/v1/116/${chamber}/bills/${type}.json`, myInit)
                 .then(res => res.json())
                 .then(res => 
                     dispatch({
-                    type: "ADD_HOUSE_MEMBERS",
-                    members: res['results'][0]['members']
+                    type: "ADD_BILLS",
+                    bills: res['results'][0]['bills']
                 }))
                 .catch(error => console.log(error)
                 );
@@ -56,11 +59,11 @@ const HouseMembers = () => {
     }
 
     useEffect(() => {
-        dispatch(fetchMember());
+        dispatch(fetchBills());
     }, []);
 
     const handleChange = (event, value) => {
-        setSelectedMembers(value)
+        setSelectedBills(value)
     }
     
     
@@ -68,31 +71,29 @@ const HouseMembers = () => {
         
         <div  className={classes.root}>
             <Autocomplete
-              
                 multiple
-                limitTags={2}
+                limitTags={4}
                 id="multiple-limit-tags"
-                options={members || []}
-                getOptionLabel={(option) => option.last_name +", " + option.first_name + " " + " " + "(" + option.party + ")" + "-" + option.state + " " }
-                defaultValue={members}
+                options={bills || []}
+                getOptionLabel={(option) => option.number +" - " + option.short_title}
+                defaultValue={bills}
                 onChange={handleChange}
                 renderTags={(value, getTagProps) =>
                     value.map((option, index) => (
-                        
-                        <Chip label={option.first_name.charAt(0) + "." + option.last_name.charAt(0) + "."} {...getTagProps({ index })} /> 
+                        <Chip label={option.number}{...getTagProps({ index })} /> 
                     ))
                 }
                 renderInput={(params) => (
-                    <TextField
-                        {...params}
-                        variant="standard"
-                        label="Select Members"
-                        placeholder="Write-in:"
-                    />            
+                <TextField
+                    {...params}
+                    variant="standard"
+                    label="Select Bills"
+                    placeholder="You can choose as many as you'd like"
+                />
                 )}
             />
-            <MemberShow members={selectedMembers} />  
+            <BillShow bills={selectedBills}/>
         </div>
     );
 }
-export default HouseMembers  
+export default Bills  
