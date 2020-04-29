@@ -14,6 +14,7 @@ const useStyles = makeStyles({
       padding: 0,
       fontSize: 10,
       margin: 0,
+
     },
     head: {
       textAlign: 'right',
@@ -45,7 +46,8 @@ const MemberShow = ({members}) => {
       padding: 0,
       fontSize: 10,
       margin: 0,
-      
+      alignItems: 'center',
+     
     //   border: '1px solid rgba(0, 0, 0, .125)',
     //   boxShadow: 'none',
     //   '&:not(:last-child)': {
@@ -67,8 +69,8 @@ const MemberShow = ({members}) => {
       padding: 0,
       fontSize: 10,
       margin: 0,
-    
-      // alignItems: 'center'
+      // display: 'contents',
+      alignItems: 'center'
     //   backgroundColor: 'rgba(0, 0, 0, .03)',
     //   borderBottom: '1px solid rgba(0, 0, 0, .125)',
     //   marginBottom: -1,
@@ -78,7 +80,7 @@ const MemberShow = ({members}) => {
     //   },
     },
     content: {
-
+      display: 'contents',
       width:265,
       padding: 0,
       fontSize: 12,

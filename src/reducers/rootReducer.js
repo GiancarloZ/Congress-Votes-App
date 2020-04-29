@@ -40,7 +40,12 @@ function rootReducer(state = initialState, action){
                 bills: action.bills,
                 loading: false
             }
-
+        case 'POST_MEMBERS':
+            return {
+                ...state,
+                senateMembers: action.members,
+                houseMembers: action.members,
+            }
         default:
             return state;
         }

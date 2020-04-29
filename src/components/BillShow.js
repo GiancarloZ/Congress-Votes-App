@@ -50,15 +50,16 @@ const BillShow = ({bills}) => {
       margin: 0,
     },
     content: {
+      display: 'contents',
       width: 580,
       padding: 0,
       fontSize: 12,
       margin: 0,
       height: 'auto',
-      textAlign: 'left'
+      textAlign: 'cebter'
     },
     label: {
-      alignItems: 'right',
+      alignItems: 'center',
     },
    
   })(MuiExpansionPanelSummary);
@@ -69,7 +70,7 @@ const BillShow = ({bills}) => {
         padding: 0,
         margin: 0,
         minHeight: 48,
-        textAlign: "left",
+        textAlign: "center",
         fontSize: 11,
     },
    
@@ -85,14 +86,20 @@ const BillShow = ({bills}) => {
             aria-controls="panel1bh-content"
             id="panel1bh-header"
           > 
-            <b>{bill.number}</b>: {bill.title}<br></br>
+            <b>{bill.number}</b> {bill.title}<br></br>
             <b>Sponsor:</b> {bill.sponsor_name} ({bill.sponsor_party}) - {bill.sponsor_state} {bill.sponsor_title}
           </ExpansionPanelSummary>
                     
           <ExpansionPanelDetails>
-                    
-          <b>Summary:</b> {bill.summary}<br></br>
-          <b>Committee:</b>{bill.committees}                
+          <b>Date Introduced:</b>{bill.introduced_date}    <br></br>      
+          <br></br><b>Summary:</b> <br></br>{
+          bill.summary}<br></br>
+          <b>Committee:</b><br></br>
+          bill.committees} <br></br>
+          <b>Actions:</b><br></br>
+          {bill.latest_major_action}<br></br> 
+          <b>Primary Subject:</b><br></br>
+          {bill.primary_subject}   <br></br>          
           </ExpansionPanelDetails>
             
         </ExpansionPanel>

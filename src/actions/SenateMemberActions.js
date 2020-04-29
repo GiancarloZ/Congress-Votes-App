@@ -6,7 +6,7 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import Chip from '@material-ui/core/Chip';
-
+import PostToDb from './PostToDb'
 
 const myHeaders = {
     'X-API-Key': config.PP_KEY
@@ -35,14 +35,16 @@ const SenateMembers = () => {
     const [selectedMembers, setSelectedMembers] = useState([])
     const dispatch = useDispatch();
     const classes = useStyles();
+    
     console.log(members)
   
     function fetchMember() {
         return dispatch => {
+
             dispatch({
                 type: 'LOADING_SENATE_MEMBERS',
               });
-            fetch("https://api.propublica.org/congress/v1/116/senate/members.json", myInit)
+                fetch("https://api.propublica.org/congress/v1/116/senate/members.json", myInit)
                 .then(res => res.json())
                 .then(res => 
                     dispatch({
@@ -51,20 +53,61 @@ const SenateMembers = () => {
                 }))
                 .catch(error => console.log(error)
                 );
-            }
+        }
     }
 
     useEffect(() => {
         dispatch(fetchMember());
     }, []);
-
+    
+    
+    function postMember(){
+        members.map(member => {
+            return dispatch => {
+                dispatch({
+                    type: 'POST_MEMBERS',
+                  });
+                   fetch("http://localhost:3000/api/v1/members/", {
+                    method: 'POST',
+                    headers: {
+                        Accept: 'application/json',
+                      'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ members: member})
+                  })
+                  .then(res => res.json())
+                  .then(data => console.log(data))
+                  .catch(error => console.log(error));
+            }
+        })
+    
+    
+        }
+   
+    useEffect(() => {
+        dispatch(postMember());
+    }, []);
+    
     const handleChange = (event, value) => {
         setSelectedMembers(value)
     }
+
+    // function postMember(){
+        
+    //     fetch('http://localhost:3000/api/v1/members', {
+    //         method: 'GET'
+    //     })
+    //     .then(res => res.json())
+    //     .then(data => console.log(data))
+    // }    
+    // useEffect(() => {
+    //     postMember()
+    // });
     
     return (
         
         <div  className={classes.root}>
+            
             <Autocomplete
               
                 multiple
