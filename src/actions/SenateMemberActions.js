@@ -65,27 +65,27 @@ const SenateMembers = () => {
     
 
 
-    function postMember(i){
-        console.log(members)
-            // if(!!members && members.length > 0){
+    // function postMember(i){
+    //     console.log(members)
+    //         // if(!!members && members.length > 0){
                
 
-                        return dispatch => {
-                            dispatch({
-                                type: 'POST_MEMBERS',
-                            });
-                            fetch("http://localhost:3000/api/v1/members/", {
-                                method: 'POST',
-                                headers: {
-                                    Accept: 'application/json',
-                                'Content-Type': 'application/json'
-                                },
-                                body: JSON.stringify({ members: members[i] })
-                            })
-                            .then(res => res.json())
-                            .then(data => console.log(data))
-                            .catch(error => console.log(error));
-                        };
+    //                     return dispatch => {
+    //                         dispatch({
+    //                             type: 'POST_MEMBERS',
+    //                         });
+    //                         fetch("http://localhost:3000/api/v1/members/", {
+    //                             method: 'POST',
+    //                             headers: {
+    //                                 Accept: 'application/json',
+    //                             'Content-Type': 'application/json'
+    //                             },
+    //                             body: JSON.stringify({ members: members[i] })
+    //                         })
+    //                         .then(res => res.json())
+    //                         .then(data => console.log(data))
+    //                         .catch(error => console.log(error));
+    //                     };
 
            
             // }
@@ -110,16 +110,16 @@ const SenateMembers = () => {
             // }
         
     // }
-    }
+    // }
     
-    useEffect(() => {
-        console.log('here')
-        if(!!members && members.length > 1){
-            for (let i = 0; i < 3; i++){
-                dispatch(postMember(i));
-            }
-        }
-    });
+    // useEffect(() => {
+    //     console.log('here')
+    //     if(!!members && members.length > 1){
+    //         for (let i = 0; i < 3; i++){
+    //             dispatch(postMember(i));
+    //         }
+    //     }
+    // });
    
     
     const handleChange = (event, value) => {

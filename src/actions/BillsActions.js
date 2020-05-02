@@ -73,7 +73,7 @@ const Bills = () => {
             <Autocomplete
                 multiple
                 limitTags={4}
-                id="multiple-limit-tags"
+                id="Bills"
                 options={bills || []}
                 getOptionLabel={(option) => option.number +" - " + option.short_title}
                 defaultValue={bills}

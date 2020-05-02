@@ -42,7 +42,7 @@ const MemberShow = ({members}) => {
   // };
   const ExpansionPanel = withStyles({
     root: {
-      width:265,
+      width:'auto',
       padding: 0,
       fontSize: 10,
       margin: 0,
@@ -65,7 +65,7 @@ const MemberShow = ({members}) => {
   
   const ExpansionPanelSummary = withStyles({
     root: {
-      width:265,
+      width:'auto',
       padding: 0,
       fontSize: 10,
       margin: 0,
@@ -81,15 +81,12 @@ const MemberShow = ({members}) => {
     },
     content: {
       display: 'contents',
-      width:265,
+      width:'auto',
       padding: 0,
       fontSize: 12,
       margin: 0,
       height: 48,
       alignItem: 'cemter'
-    },
-    label: {
-      alignItems: 'right',
     },
    
   })(MuiExpansionPanelSummary);
@@ -97,7 +94,7 @@ const MemberShow = ({members}) => {
   const ExpansionPanelDetails = withStyles((theme) => ({
     root: {
         // display: 'contents',
-        width:265,
+        width:'auto',
         padding: 0,
         margin: 0,
         minHeight: 48,
@@ -109,17 +106,18 @@ const MemberShow = ({members}) => {
 
   return (
 
-    <div  className={classes.root}>
+    <div >
 
         {members.map((member) => 
            
                  
-                  <ExpansionPanel  >
+                  <ExpansionPanel key={member['id']} >
                     <ExpansionPanelSummary
                       // expandIcon={<ExpandMoreIcon />}
                       
                       aria-controls="panel1bh-content"
                       id="panel1bh-header"
+                      
                       // expandIcon={ <Headshot  member={member} />}
                     >    
                       {/* <Icon classes={{root: classes.iconRoot}}> */}

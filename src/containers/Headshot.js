@@ -26,7 +26,7 @@ const useStyles = makeStyles({
 const Headshot = (prop) => {
     console.log(prop)
     const [id, setId] = useState(prop['prop']['id'])
-    const [headshot, setHeadshot] = useState(['/dummy-profile-pic.png'])
+    const [headshot, setHeadshot] = useState([])
     const classes = useStyles();
     useEffect(() => {
         setHeadshot(`https://bioguideretro.congress.gov/Static_Files/images/photos/${id.charAt(0)}/${id}.jpg`)

@@ -23,7 +23,7 @@ const BillShow = ({bills}) => {
   const classes = useStyles();
   const ExpansionPanel = withStyles({
     root: {
-      width:580,
+      width:'auto',
       padding: 0,
       fontSize: 10,
       margin: 0,
@@ -44,29 +44,27 @@ const BillShow = ({bills}) => {
   
   const ExpansionPanelSummary = withStyles({
     root: {
-      width: 580,
+      width:'auto',
       padding: 0,
       fontSize: 10,
       margin: 0,
     },
     content: {
       display: 'contents',
-      width: 580,
+      width:'auto',
       padding: 0,
       fontSize: 12,
       margin: 0,
       height: 'auto',
       textAlign: 'cebter'
     },
-    label: {
-      alignItems: 'center',
-    },
+   
    
   })(MuiExpansionPanelSummary);
   
   const ExpansionPanelDetails = withStyles((theme) => ({
     root: {
-        width:580,
+        width:'auto',
         padding: 0,
         margin: 0,
         minHeight: 48,
@@ -78,10 +76,10 @@ const BillShow = ({bills}) => {
  
 
   return (
-    <div className={classes.root}>
+    <div >
 
     {bills.map((bill) => 
-        <ExpansionPanel  >
+        <ExpansionPanel key={bill['bill_id']} >
           <ExpansionPanelSummary
             aria-controls="panel1bh-content"
             id="panel1bh-header"

@@ -64,7 +64,7 @@ const SenateMembers = () => {
               
                 multiple
                 limitTags={2}
-                id="multiple-limit-tags"
+                id="senateMembers"
                 options={members}
                 getOptionLabel={(option) => option.last_name +", " + option.first_name + " " + " " + "(" + option.party + ")" + "-" + option.state + " " }
                 defaultValue={members}
