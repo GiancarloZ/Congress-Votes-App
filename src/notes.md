@@ -86,4 +86,8 @@ const initialState = {
 
 
 
-
+HOW AM I SUPPOSED TO SET UP ALL THE FETCHES!!!???
+    -upon initialization, fetch propublica info
+        -dispatch loading, and adding members
+            -this then checks the database for those records, anything new gets updated in the DB, rest is left alone becuase its same. 
+            
