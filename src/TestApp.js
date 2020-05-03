@@ -5,10 +5,10 @@ import Grid from '@material-ui/core/Grid';
 import SenateMembers from './actions/SenateMemberActions'
 import HouseMembers from './actions/HouseMemberActions'
 import Bills from './actions/BillsActions'
-import {
-  BrowserRouter as Router,
-  Route
-} from 'react-router-dom';
+// import {
+//   BrowserRouter as Router,
+//   Route
+// } from 'react-router-dom';
 // import PostToDb from './actions/PostToDb'
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -31,11 +31,11 @@ const TestApp = () => {
   
 
   return (
-    <Router>
+  
    
    
     <div className={classes.root}>
-    <Route exact path="/" component={Home} />
+   
       <Grid container spacing={1}>
         
           <Grid item xs={12}>
@@ -75,7 +75,7 @@ const TestApp = () => {
       
       </Grid>
     </div>
-    </Router>
+
   )
 
 }
