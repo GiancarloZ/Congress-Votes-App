@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import config from '../config'
 import { useDispatch, useSelector } from "react-redux";
-import MemberShow from '../components/MemberShow'
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
@@ -24,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
     root: {
       width: 'flex',
       '& > * + *': {
-        marginTop: theme.spacing(0),
+        margin: theme.spacing(1),
       },
       
     },
@@ -99,8 +98,11 @@ const SenateMembers = () => {
                 )}
             />
             {Object.keys(selectedMembers).length > 0 &&
-                <MemberInfo props={selectedMembers}/>
+                selectedMembers.map((member) => {
+                    return <MemberInfo props={member}/>
+                })
             }
+    
         </div>
     );
 }

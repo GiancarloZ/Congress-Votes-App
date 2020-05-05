@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   paper: {
-    padding: theme.spacing(1),
+    padding: theme.spacing(0),
     color: theme.palette.text.secondary,
   },
   header: {

@@ -10,8 +10,9 @@ import MuiExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import MuiExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import { withStyles } from '@material-ui/core/styles';
 import Headshot from '../containers/Headshot'
+import MemberVotes from '../containers/MemberVotes'
 import Grid from '@material-ui/core/Grid'
-import Paper from '@material-ui/core/Paper';
+
 const myHeaders = {
     'X-API-Key': config.PP_KEY
 }
@@ -27,29 +28,49 @@ const useStyles = makeStyles((theme) => ({
       width:265,
       padding: 0,
       fontSize: 10,
-      margin: 0,
+      margin: 1,
 
     },
+    ul: {
+      padding: 0,
+      margin: theme.spacing(3),
+
+    },
+    // container: {
+    //   display: 'grid',
+    //   gridTemplateColumns: 'repeat(12, 1fr)',
+    //   gridGap: theme.spacing(0),
+    // },
+    // paper: {
+    //   padding: theme.spacing(0),
+    //   textAlign: 'left',
+    //   color: theme.palette.text.secondary,
+    //   whiteSpace: 'nowrap',
+    //   marginBottom: theme.spacing(0),
+    // },
     paper: {
-      padding: theme.spacing(1),
-      color: theme.palette.text.secondary,
+      padding: 0,
+    //   color: theme.palette.text.secondary,
+    //   textAlign: 'left',
     },
     head: {
-      textAlign: 'right',
+      textAlign: 'left',
     },
     
   }));
 
 const MemberInfo = (prop) => {
-    const [id, setId] = useState(prop['props'][0]['id'])
+
+    const [id, setId] = useState(prop['props']['id'])
     const [hasError, setErrors] = useState(false)
     const [member, setMember] = useState([])
-    const membs = prop['props'][0]
+    const membs = prop['props']
+
     console.log(id)
     console.log(prop)
     console.log(membs)
     console.log(member)
-  
+ 
     const classes = useStyles();
  
     const ExpansionPanel = withStyles({
@@ -57,8 +78,8 @@ const MemberInfo = (prop) => {
         width:'auto',
         padding: 0,
         fontSize: 10,
-        margin: 0,
-        alignItems: 'center',
+        margin: 1,
+        alignItems: 'left',
       },
     
     })(MuiExpansionPanel);
@@ -67,18 +88,18 @@ const MemberInfo = (prop) => {
       root: {
         width:'auto',
         padding: 0,
-        fontSize: 10,
+        fontSize: 12,
         margin: 0,
-        alignItems: 'center'
+        alignItems: 'center',
+        height: 48,
       },
       content: {
         display: 'contents',
-        width:'auto',
-        padding: 0,
-        fontSize: 12,
-        margin: 0,
-        height: 48,
-        alignItem: 'cemter'
+        // width:'auto',
+        // padding: 0,
+        // fontSize: 12,
+        // margin: 0,
+        // alignItem: 'cemter'
       },
      
     })(MuiExpansionPanelSummary);
@@ -87,10 +108,10 @@ const MemberInfo = (prop) => {
       root: {
           width:'auto',
           padding: 0,
-          margin: 0,
+          margin: 1,
           minHeight: 48,
           textAlign: "left",
-          fontSize: 9,
+          fontSize: 10,
       },
      
     }))(MuiExpansionPanelDetails);
@@ -119,79 +140,78 @@ const MemberInfo = (prop) => {
                       id="panel1bh-header"
                       
                       // expandIcon={ <Headshot  member={member} />}
-                    >    
+                    >  
+                    
+                         
                             {/* <Icon classes={{root: classes.iconRoot}}> */}
                             {/* <AllMemberInfo  member={member}/> */}
-                                {/* <img alt='oval'  src="/Empty Oval.jpg" /> */}
-                                {/* <img className={classes.imageIcon} src="/Empty Oval.jpg"/>
+                            {/* <img alt='oval'  src="/Empty Oval.jpg" /> */}
+                            {/* <img className={classes.imageIcon} src="/Empty Oval.jpg"/>
                             </Icon> */}
-                            
-                                        {membs.first_name + " " + membs.last_name} - ({membs.party})-{membs.state} 
-                                        <br></br> {membs.title}
-                                        <Headshot prop={id} />
-                             
-
+                       
+                            {membs.first_name + " " + membs.last_name} - ({membs.party})-{membs.state} 
+                            <br></br> {membs.title}
+                        
+                      
+                        <Headshot prop={id} />
+                        
                     </ExpansionPanelSummary>
                   
                     <ExpansionPanelDetails>
                           
-                            <Grid width={4}>
-                                          <Paper className={classes.paper}>
-                                            Next Election: {membs['next_election']}<br></br>
-                                            Missed: {membs['missed_votes_pct']}%<br></br>
-                                            w/ Party: {membs['votes_with_party_pct']}%<br></br>
-                                            a/ Party: {membs['votes_against_party_pct']}%<br></br>  
-                                            
-                                            </Paper>
-                            </Grid>
+                           
 
                       {Object.keys(member).length > 0 &&   
-                          <div>            
-                               
-                                <Grid width={4}>
-                                <Paper className={classes.paper}>
-                                  Committees:
-                                  <ul>{member["roles"][0]["committees"].map(comm => (
-                                    <li key={comm.code}>
-                                      {comm.name.replace(/&#39;/g,"'").replace(/&quot;/g,"'")}
-                                    </li>
-                                      ))}</ul>
-                                      </Paper>
-                                </Grid>
-                            
-                              <Grid width={8}>
-                                <Paper className={classes.paper}>
-                                  <a href={membs.url} >{membs.url}</a>
-                                  <p>Address: {member['roles'][0]['office']}</p>
-                                  <p>    Current Role: {member['roles'][0]['title']} {member['roles'][1]['congress'] === member['roles'][0]['congress'] ? ', ' + member['roles'][1]['title']: ''} - {member['roles'][0]['state']} {member['roles'][0]['district'] ? member['roles'][0]['district'] : ''} </p>
-                                  <p>    In office until {member['roles'][0]['end_date'].substring(0,4)}</p>
-                                  <p>    Address: {member['roles'][0]['office']}</p>
-                                  <p>   Phone: {member['roles'][0]['phone']}</p>
-                                  <p>  Current Role: {member['roles'][0]['title']}{member['roles'][1]['congress'] === member['roles'][0]['congress'] ? ', ' + member['roles'][1]['title']: ''} - {member['roles'][0]['state']} {member['roles'][0]['district'] ? member['roles'][0]['district'] : ''}</p>
-                                  <p>  In office until {member['roles'][0]['end_date'].substring(0,4)}</p>
-                                  <p>  Address: {member['roles'][0]['office']}</p>
-                                  <p>  Phone: {member['roles'][0]['phone']}</p>
-                                  </Paper>
-                              </Grid>
-                              <Grid width={8}>
-                              
-                                  Recent Statements by {member["first_name"]}
-
-                                                
-                                {/* <RecentStatements statements={statements}/> */}
-                            
-                            </Grid>
-                         
-                          
-                            <Grid width={12}>
-
-                                  {member["first_name"]}'s Recent Voting History
+                          <Grid container spacing={1}> 
+                                  <Grid item xs={12} sm={8}>
+                                    
+                                  
+                                    <a href={membs.url} target="_blank" >{membs.url}</a><br></br>
+                                   <b>Address:</b> {member['roles'][0]['office']}<br></br>
+                                   <b>Phone:</b> {member['roles'][0]['phone']}<br></br>
+                                   <b>Current Role:</b> {member['roles'][0]['title']}{member['roles'][1]['congress'] === member['roles'][0]['congress'] ? ', ' + member['roles'][1]['title']: ''} - {member['roles'][0]['state']} {member['roles'][0]['district'] ? member['roles'][0]['district'] : ''}
                                 
+                              
+                              </Grid>
+
+                                <Grid item xs={12} sm={4}>
+                                    
+                                      <b>Next Election: {membs['next_election']}</b><br></br>
+                                      Missed: {membs['missed_votes_pct']}%<br></br>
+                                      w/ Party: {membs['votes_with_party_pct']}%<br></br>
+                                      a/ Party: {membs['votes_against_party_pct']}%<br></br>  
+                                  
+                                  </Grid>
+                                  
+
+
+                              <Grid item xs={12} sm={6}>
+                                    <div className={classes.head}><b>Committees:</b></div>
+                                    <ul className={classes.ul}>{member["roles"][0]["committees"].map(comm => (
+                                      
+                                        <li key={comm.code}>
+                                          {comm.name.replace(/&#39;/g,"'").replace(/&quot;/g,"'")}
+                                        </li>
+                                      ))}
+                                    </ul>
+                                    <Grid item xs={12} sm={6}>                            
+                                      <div className={classes.root}><b>Recent Statements by {member["first_name"]}  </b>     </div>                                    
+                                    {/* <RecentStatements statements={statements}/> */}                        
+                                    </Grid>
+                              </Grid>
+
+                              <Grid item xs={12} sm={6}>
+                                <b>{member["first_name"]}'s Recent Voting History</b><br></br>
                                 {/* <CongressPersonVoteList votes={votes} /> */}
+     
+                                    <MemberVotes prop={id} />
+                                
+                              </Grid>        
+                             
+                              
+                           
+                          </Grid>
                       
-                            </Grid>
-                        
-                          </div>
                         }
                         
 

@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import config from '../config'
 import { useDispatch, useSelector } from "react-redux";
-import MemberShow from '../components/MemberShow'
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import Chip from '@material-ui/core/Chip';
-
+import MemberInfo from '../containers/MemberInfo'
 
 
 const myHeaders = {
@@ -91,6 +90,7 @@ const HouseMembers = () => {
     return (
         
         <div  className={classes.root}>
+            
             <Autocomplete
               
                 multiple
@@ -115,7 +115,12 @@ const HouseMembers = () => {
                     />            
                 )}
             />
-            {/* <MemberShow members={selectedMembers} />   */}
+            {Object.keys(selectedMembers).length > 0 &&
+                selectedMembers.map((member) => {
+                    return <MemberInfo props={member}/>
+                })
+            }
+    
         </div>
     );
 }
