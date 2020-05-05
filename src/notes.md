@@ -1,4 +1,9 @@
-Bills or incumbents
+"start": "serve -s build",      - make sure to change start script in package.json to this for heroku.
+
+
+
+
+ills or incumbents
 
 Have a button for covid-19 related bills. Show each version of bill and each vote on those bill as well as the changes + and - of the bills and what the final results were. Did my senator vote against the version that gave us money and voted for the version that got rid of that money for me and the corporations got more, etc..
 

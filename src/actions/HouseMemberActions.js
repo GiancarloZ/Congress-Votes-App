@@ -115,7 +115,7 @@ const HouseMembers = () => {
                     />            
                 )}
             />
-            <MemberShow members={selectedMembers} />  
+            {/* <MemberShow members={selectedMembers} />   */}
         </div>
     );
 }

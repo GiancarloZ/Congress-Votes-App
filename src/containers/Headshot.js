@@ -25,7 +25,7 @@ const useStyles = makeStyles({
 
 const Headshot = (prop) => {
     console.log(prop)
-    const [id, setId] = useState(prop['prop']['id'])
+    const [id, setId] = useState(prop.prop)
     const [headshot, setHeadshot] = useState([])
     const classes = useStyles();
     useEffect(() => {
