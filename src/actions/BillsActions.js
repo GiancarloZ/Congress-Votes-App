@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import config from '../config'
 import { useDispatch, useSelector } from "react-redux";
-import BillShow from '../components/BillShow'
+import BillInfo from '../components/BillInfo'
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
@@ -92,7 +92,11 @@ const Bills = () => {
                 />
                 )}
             />
-            <BillShow bills={selectedBills}/>
+             {Object.keys(selectedBills).length > 0 &&
+                selectedBills.map((bills) => {
+                    return <BillInfo props={bills}/>
+                })
+            }
         </div>
     );
 }

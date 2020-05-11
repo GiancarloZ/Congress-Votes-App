@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
     root: {
       width: 'flex',
       '& > * + *': {
-        margin: theme.spacing(1),
+        margin: theme.spacing(0),
       },
       
     },
@@ -39,11 +39,10 @@ const SenateMembers = () => {
   
     function fetchMember() {
         return dispatch => {
-
             dispatch({
                 type: 'LOADING_SENATE_MEMBERS',
               });
-                fetch("https://api.propublica.org/congress/v1/116/senate/members.json", myInit)
+            fetch("https://api.propublica.org/congress/v1/116/senate/members.json", myInit)
                 .then(res => res.json())
                 .then(res => 
                     dispatch({
@@ -53,8 +52,6 @@ const SenateMembers = () => {
                 .catch(error => console.log(error)
                 );
         }
-
-     
     }
 
     useEffect(() => {

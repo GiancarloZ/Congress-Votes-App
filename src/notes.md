@@ -1,6 +1,7 @@
 "start": "serve -s build",      - make sure to change start script in package.json to this for heroku.
 
-
+  "start": "react-scripts start",
+    "start": "serve -s build", 
 
 
 ills or incumbents
@@ -96,3 +97,7 @@ HOW AM I SUPPOSED TO SET UP ALL THE FETCHES!!!???
         -dispatch loading, and adding members
             -this then checks the database for those records, anything new gets updated in the DB, rest is left alone becuase its same. 
             
+
+If device is undefined or null in person, the JavaScript interpreter will throw an error. With the optional chaining operator, you can write:
+const deviceName = person?.device?.name;
+If deviceName is undefined, the deviceName will be null. Thus, by using optional chaining if the property in the object isn’t present, you don’t have to handle it explicitly. Optional chaining is here to rescue you.

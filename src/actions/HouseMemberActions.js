@@ -35,6 +35,7 @@ const HouseMembers = () => {
     const [selectedMembers, setSelectedMembers] = useState([])
     const dispatch = useDispatch();
     const classes = useStyles();
+    
     console.log(members)
 
     function fetchMember() {
@@ -58,30 +59,7 @@ const HouseMembers = () => {
         dispatch(fetchMember());
     }, []);
     
-    // function postMember(){
-        
-    //     return dispatch => {
-    //         dispatch({
-    //             type: 'POST_MEMBERS',
-    //           });
-    //            fetch("http://localhost:3000/api/v1/members/", {
-    //             method: 'POST',
-    //             headers: {
-    //                 Accept: 'application/json',
-    //               'Content-Type': 'application/json'
-    //             },
-    //             body: JSON.stringify({ members: members})
-    //           })
-    //           .then(res => res.json())
-    //           .then(data => console.log(data))
-    //           .catch(error => console.log(error));
-    //     }
-    
-    // }
-
-    // useEffect(() => {
-    //     dispatch(postMember());
-    // });
+  
     const handleChange = (event, value) => {
         setSelectedMembers(value)
     }
