@@ -140,7 +140,7 @@ const MemberInfo = (prop) => {
                     {/* <img className={classes.imageIcon} src="/Empty Oval.jpg"/>
                     </Icon> */}
               </Grid>   
-              <Grid item xs={6} sm={6}>
+              <Grid item className={classes.sum} xs={6} sm={6}>
                 {membs.first_name + " " + membs.last_name} - ({membs.party})-{membs.state} 
                 <br></br> {membs.title}
               </Grid>    

@@ -10,7 +10,7 @@ import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography'
-
+import Divider from '@material-ui/core/Divider';
 const myHeaders = {
     'X-API-Key': config.PP_KEY
 }
@@ -41,15 +41,22 @@ const useStyles = makeStyles((theme) => ({
   head: {
     textAlign: 'left',
   },
+  side: {
+    alignItems: 'flex-start',
+  },
   grid: {
     alignContent: 'center',
-    alignItems: 'flex-start',
+    alignItems: 'center',
     textAlign: 'center',
+    // justify: 'space-around',
     margin: 0,
     width: '100%',
   },
   com: {
-    alignSelf: 'flex-start',
+    alignItems: 'center',
+    textAlign:  "center",
+    height: "100%",
+    width: "100%"
   },
   sum: {
     alignItems: 'center',
@@ -76,8 +83,6 @@ const BillInfo = (prop) => {
           padding: 0,
           fontSize: 10,
           margin: 1,
-          alignItems: 'center',
-          alignContent: 'center',
         },
       })(MuiExpansionPanel);
       
@@ -87,12 +92,10 @@ const BillInfo = (prop) => {
           padding: 0,
           fontSize: 11,
           margin: 0,
-          alignItems: 'center',
-          textAlign: 'center',
           minHeight: 48,
           '&$expanded': {
              minHeight: 48,
-    },
+      },
         },
         content: {
           '&$expanded': {
@@ -132,57 +135,105 @@ const BillInfo = (prop) => {
           <ExpansionPanelSummary
                 aria-controls="panel1bh-content"
                 id="panel1bh-header"
-          > 
-              <Grid container className={classes.grid} spacing={1}> 
-                  <Grid item className={classes.grid} xs={12} sm={1}  >    
+          >
+          <Grid container direction={"column"} className={classes.com} spacing={1}> 
+          <br></br>
+            <Grid container  spacing={1}> 
+              
+              <Grid item  xs={2} sm={2} >   
+                  {/* <Paper> */}
                     <b><u>Bill #:</u></b><br></br>
                     <b>{bills.number}</b> 
-                  </Grid>
-                  <Grid item className={classes.grid} xs={12} sm={8}>  
-                    {bills.summary_short}
-                  </Grid>
-                  <Grid item className={classes.grid} xs={12} sm={3}>    
+                  {/* </Paper> */}
+         
+                  <Divider />
+                    
+                  
+                      <b><u>Date</u></b><br></br>   
+                      {bills.introduced_date} 
+          
+              </Grid>
+        
+              <Grid item  xs={8} sm={8}> 
+               {/* <Paper> */}
+                 <b><u>Summary</u></b> <br></br> 
+                 {bills.summary_short}
+                 {/* </Paper> */}
+              </Grid>
+  
+                <Grid item xs={2} sm={2}>    
+                    
                     <b><u>Sponsor:</u></b> <br></br>
                     <Paper>
                       {bills.sponsor_name} ({bills.sponsor_party}) - {bills.sponsor_state} {bills.sponsor_title}
+                     
                     </Paper>
-                  </Grid>
+                </Grid>
+        
+           
               </Grid>
+              <br></br> 
+            </Grid> 
             </ExpansionPanelSummary>
                     
             <ExpansionPanelDetails>
-              <Grid container className={classes.grid} spacing={1}> 
-                
-                <Grid container className={classes.grid} spacing={1}>  
-                  <Grid item xs={12} sm={1}>  
-                    <b><u>Introduced</u></b><br></br>   
-                    {bills.introduced_date}  
-                  </Grid>
-                  <Grid item xs={12} sm={8}>  
-                    <b><u>Summary</u></b> <br></br>
-                    {bills.summary}<br></br>
-                  </Grid>
-  
-                  <Grid item xs={12} sm={3}>  
-                    <b><u>Actions</u></b><br></br>
-                    {bills.latest_major_action}<br></br>                  
-                  </Grid>  
+
+            <Grid container direction={"column"} className={classes.com} spacing={1}> 
+            <br></br>
+            <Grid container  spacing={1}> 
               
-                </Grid>  
-
-                <Grid container className={classes.grid} spacing={1} justify={"space-between"}>  
-            
-                  <Grid item xs={12} sm={3}>  
-                    <b><u>Committee</u></b><br></br>
-                    {bills.committees} <br></br>
-                  </Grid> 
-                   <Grid item xs={12} sm={3}>  
-                    <b><u>Primary Subject</u></b><br></br>
-                    {bills.primary_subject}   <br></br>          
-                  </Grid>
+              <Grid item  xs={2} sm={2} >   
+              {Object.keys(bill).length > 0 &&
+              <div>
+                <b><u>Votes</u></b><br></br> 
+                <Divider />
+                There have been {bill.votes ? <b>{bill.votes.length}</b> : ''} vote(s)
+                <Divider />
+                  <br></br>
+                  {bill.votes.map(vote => (
+                    <Paper>
+                      <b><u>{vote.chamber} Vote</u> </b>
+                      <p>{vote.question} ({vote.date})</p>
+                      <p><u>Result: {vote.result}</u></p>
+                      <p>Y: {vote.total_yes}</p>
+                      <p>N: {vote.total_no}</p>
+                      <p>DNV: {vote.total_not_voting}</p>
+                    </Paper>
+                  ))}
+              
+                </div>
+              }
+                 
+              </Grid>
+        
+              <Grid item  xs={8} sm={8}> 
+              {bills.summary}
+              </Grid>
+  
+                <Grid item xs={2} sm={2}>    
+                    
+                  <b><u>Actions</u></b><br></br>
+                  <Divider />
+                  There have been {bill.actions ? <b>{bill.actions.length}</b> : ''} action(s)<br></br>
+                  <Divider />
+                    {Object.keys(bill).length > 0 &&
+                      <div>
+                          {bill.actions.map(action => (
+                            <Paper>
+                            <b><u>{action.chamber} Action</u></b> <br></br>
+                            <p>{action.action_type} ({action.datetime})</p>
+                            <p>{action.description}</p>
+                            </Paper>
+                          ))}
+                      
+                      </div>
+                    }
                 </Grid>
-
-              </Grid> 
+        
+           
+              </Grid>
+              <br></br> 
+            </Grid> 
 
           </ExpansionPanelDetails>
         </ExpansionPanel>
