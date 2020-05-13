@@ -9,7 +9,7 @@ import MuiExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
-
+import Typography from '@material-ui/core/Typography'
 
 const myHeaders = {
     'X-API-Key': config.PP_KEY
@@ -23,26 +23,40 @@ const myInit = {
 }
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-      width:265,
-      padding: 0,
-      fontSize: 10,
-      margin: 1,
+  root: {
+    width:265,
+    padding: 0,
+    fontSize: 10,
+    margin: 1,
 
-    },
-    ul: {
-      padding: 0,
-      margin: theme.spacing(3),
+  },
+  ul: {
+    padding: 0,
+    margin: theme.spacing(3),
 
-    },
-    paper: {
-      padding: 0,
-    },
-    head: {
-      textAlign: 'left',
-    },
-    
-  }));
+  },
+  paper: {
+    padding: 0,
+  },
+  head: {
+    textAlign: 'left',
+  },
+  grid: {
+    alignContent: 'center',
+    alignItems: 'flex-start',
+    textAlign: 'center',
+    margin: 0,
+    width: '100%',
+  },
+  com: {
+    alignSelf: 'flex-start',
+  },
+  sum: {
+    alignItems: 'center',
+    width: '100%',
+  }
+}));
+
 
 const BillInfo = (prop) => {
     const [id, setId] = useState(prop['props']['bill_slug'])
@@ -82,7 +96,7 @@ const BillInfo = (prop) => {
         },
         content: {
           '&$expanded': {
-            margin: 0,
+            margin: 1,
           },
           display: 'contents',
         },
@@ -115,43 +129,62 @@ const BillInfo = (prop) => {
         <div>
         <ExpansionPanel key={bill['bill_id']} >
 
-            <ExpansionPanelSummary
+          <ExpansionPanelSummary
                 aria-controls="panel1bh-content"
                 id="panel1bh-header"
-            > 
-                <Grid container spacing={1}> 
-                      <Grid item xs={12} sm={1} >    
-                      <b>{bills.number}</b> 
-                      </Grid>
-                      <Grid item xs={12} sm={8}>    
-                      {bills.summary_short}
-                      </Grid>
-                  <Grid item xs={12} sm={3}>    
-               <b>Sponsor:</b> <br></br>
-                <Paper>
-               {bills.sponsor_name} ({bills.sponsor_party}) - {bills.sponsor_state} {bills.sponsor_title}
-               </Paper>
-               </Grid>
-            </Grid>
+          > 
+              <Grid container className={classes.grid} spacing={1}> 
+                  <Grid item className={classes.grid} xs={12} sm={1}  >    
+                    <b><u>Bill #:</u></b><br></br>
+                    <b>{bills.number}</b> 
+                  </Grid>
+                  <Grid item className={classes.grid} xs={12} sm={8}>  
+                    {bills.summary_short}
+                  </Grid>
+                  <Grid item className={classes.grid} xs={12} sm={3}>    
+                    <b><u>Sponsor:</u></b> <br></br>
+                    <Paper>
+                      {bills.sponsor_name} ({bills.sponsor_party}) - {bills.sponsor_state} {bills.sponsor_title}
+                    </Paper>
+                  </Grid>
+              </Grid>
             </ExpansionPanelSummary>
                     
             <ExpansionPanelDetails>
-
-
-                <b>Date Introduced:</b>{bills.introduced_date}    <br></br>      
-                <br></br><b>Summary:</b> <br></br>
-                {bills.summary}<br></br>
-                <b>Committee:</b><br></br>
-                {bills.committees} <br></br>
-                <b>Actions:</b><br></br>
-                {bills.latest_major_action}<br></br> 
-                <b>Primary Subject:</b><br></br>
-                {bills.primary_subject}   <br></br>          
-
-
+              <Grid container className={classes.grid} spacing={1}> 
                 
-            </ExpansionPanelDetails>
-                
+                <Grid container className={classes.grid} spacing={1}>  
+                  <Grid item xs={12} sm={1}>  
+                    <b><u>Introduced</u></b><br></br>   
+                    {bills.introduced_date}  
+                  </Grid>
+                  <Grid item xs={12} sm={8}>  
+                    <b><u>Summary</u></b> <br></br>
+                    {bills.summary}<br></br>
+                  </Grid>
+  
+                  <Grid item xs={12} sm={3}>  
+                    <b><u>Actions</u></b><br></br>
+                    {bills.latest_major_action}<br></br>                  
+                  </Grid>  
+              
+                </Grid>  
+
+                <Grid container className={classes.grid} spacing={1} justify={"space-between"}>  
+            
+                  <Grid item xs={12} sm={3}>  
+                    <b><u>Committee</u></b><br></br>
+                    {bills.committees} <br></br>
+                  </Grid> 
+                   <Grid item xs={12} sm={3}>  
+                    <b><u>Primary Subject</u></b><br></br>
+                    {bills.primary_subject}   <br></br>          
+                  </Grid>
+                </Grid>
+
+              </Grid> 
+
+          </ExpansionPanelDetails>
         </ExpansionPanel>
    
         </div>

@@ -45,7 +45,20 @@ const useStyles = makeStyles((theme) => ({
     head: {
       textAlign: 'left',
     },
-    
+    grid: {
+      alignContent: 'center',
+      alignItems: 'flex-start',
+      textAlign: 'center',
+      margin: 0,
+      width: '100%',
+    },
+    com: {
+      alignSelf: 'flex-start',
+    },
+    sum: {
+      alignItems: 'center',
+      width: '100%',
+    }
   }));
 
 const MemberInfo = (prop) => {
@@ -67,7 +80,9 @@ const MemberInfo = (prop) => {
         padding: 0,
         fontSize: 10,
         margin: 1,
-        alignItems: 'left',
+        alignItems: 'center',
+        aligntContent: 'center',
+
       },
     })(MuiExpansionPanel);
     
@@ -117,51 +132,62 @@ const MemberInfo = (prop) => {
               id="panel1bh-header"                     
               // expandIcon={ <Headshot  member={member} />}
             >  
+            <Grid container className={classes.sum} spacing={1} >
+              <Grid item xs={2} sm={2}>
                     {/* <Icon classes={{root: classes.iconRoot}}> */}
                     {/* <AllMemberInfo  member={member}/> */}
                     {/* <img alt='oval'  src="/Empty Oval.jpg" /> */}
                     {/* <img className={classes.imageIcon} src="/Empty Oval.jpg"/>
                     </Icon> */}
-                
-                    {membs.first_name + " " + membs.last_name} - ({membs.party})-{membs.state} 
-                    <br></br> {membs.title}
-                
-              
+              </Grid>   
+              <Grid item xs={6} sm={6}>
+                {membs.first_name + " " + membs.last_name} - ({membs.party})-{membs.state} 
+                <br></br> {membs.title}
+              </Grid>    
+              <Grid item xs={2} sm={2}>
                 <Headshot prop={id} />
-                
+              </Grid>    
+              <Grid item xs={2} sm={2}>
+                <b>Next <u>Election</u> {membs['next_election']}</b>
+              </Grid>    
+            </Grid>
             </ExpansionPanelSummary>
           
             <ExpansionPanelDetails>
 
-              {Object.keys(member).length > 0 &&   
-                  <Grid container spacing={1}> 
-                      <Grid item xs={12} sm={8}>                                     
+              {Object.keys(member).length > 0 &&  
+                <Grid container className={classes.grid} spacing={1} >  
+                  <Grid container className={classes.grid} spacing={1} > 
+                      <Grid item className={classes.head} xs={12} sm={8}>                                     
                           <a href={membs.url} target="_blank" >{membs.url}</a><br></br>
                           <b>Address:</b> {member['roles'][0]['office']}<br></br>
                           <b>Phone:</b> {member['roles'][0]['phone']}<br></br>
                           <b>Current Role:</b> {member['roles'][0]['title']} {member['roles'][0]['congress']} - {member['roles'][0]['state']} {member['roles'][0]['district']}
                       </Grid>
-
+                  
                       <Grid item xs={12} sm={4}>
-                          <b>Next Election: {membs['next_election']}</b><br></br>
+                          {/* <br></br> */}
                           Missed: {membs['missed_votes_pct']}%<br></br>
                           w/ Party: {membs['votes_with_party_pct']}%<br></br>
                           a/ Party: {membs['votes_against_party_pct']}%<br></br>                                  
                       </Grid>
+                  </Grid>
 
-                      
+                  <Grid container className={classes.grid} spacing={1} >   
                       <Grid item xs={12} sm={6}>
-                          <div className={classes.root}><b>{member["first_name"]}'s Recent Bills</b><br></br></div>
+                          <div><b>{member["first_name"]}'s Recent Bills</b><br></br></div>
                           <MemberBills prop={id} />
                       </Grid>  
 
                       <Grid item xs={12} sm={6}>
-                          <div className={classes.root}><b>{member["first_name"]}'s Recent Voting History</b><br></br></div>
+                          <div><b>{member["first_name"]}'s Recent Voting History</b><br></br></div>
                           <MemberVotes prop={id} />
-                      </Grid>        
-                      
-                      <Grid item xs={12} sm={6}>
-                          <div className={classes.head}><b>Committees:</b><br></br></div>
+                      </Grid>   
+                  </Grid>
+
+                  <Grid container className={classes.grid} spacing={1} > 
+                      <Grid item className={classes.com} xs={12} sm={6}>
+                          <div><b><u>Committees</u></b></div>
                             { member["roles"][0]["committees"] &&
                               <ul className={classes.ul}>
                                 {member["roles"][0]["committees"].map(comm => (                                                               
@@ -174,11 +200,12 @@ const MemberInfo = (prop) => {
                       </Grid>  
                       
                       <Grid item xs={12} sm={6}>                            
-                          <div className={classes.root}><b>Recent Statements by {member["first_name"]}</b></div>                                    
+                          <div><b><u>Recent Statements by {member["first_name"]}</u></b></div>                                    
                           <MemberStatements prop={id} />                       
                       </Grid>
-
+              
                   </Grid>
+                </Grid>
               }
 
             </ExpansionPanelDetails>
