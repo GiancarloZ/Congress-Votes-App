@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import config from '../config'
 
 import { makeStyles } from '@material-ui/core/styles';
-import { withStyles } from '@material-ui/core/styles';
-import MuiExpansionPanel from '@material-ui/core/ExpansionPanel';
-import MuiExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-import MuiExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+// import { withStyles } from '@material-ui/core/styles';
+import ExpansionPanel from '@material-ui/core/ExpansionPanel';
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
@@ -23,45 +23,63 @@ const myInit = {
 }
 
 const useStyles = makeStyles((theme) => ({
+  expanded: {},
   root: {
-    width:265,
+    width:'100%',
     padding: 0,
     fontSize: 10,
     margin: 1,
-
+    height: 75,
+    display: "grid",
+    alignItems: 'flex-start',
+    alignContent: 'flex-start',
+    textAlign: "center",
+    "&$expanded": {
+      height: "auto",
+    },
   },
-  ul: {
+  summary:{
+    width:'auto',
     padding: 0,
-    margin: theme.spacing(3),
-
+    margin: 0,
+    height: 'auto',
+    // noWrap: "true",
+    expanded: {},
+    "& > :last-child": {
+      margin: 0,
+      "&$expanded": {
+        height: 100,
+      },
+    },
+  },
+  details: {
+    padding: 0,
+    margin: 0,
+    height: 'auto',
+    width: 'auto',
   },
   paper: {
-    padding: 0,
-  },
-  head: {
-    textAlign: 'left',
-  },
-  side: {
-    alignItems: 'flex-start',
+    // display: "contents",
   },
   grid: {
-    alignContent: 'center',
-    alignItems: 'center',
-    textAlign: 'center',
-    // justify: 'space-around',
-    margin: 0,
-    width: '100%',
+    width: 'auto',
+    height: 'auto',
+    display: "contents",
+    paddng: 0.5,
   },
   com: {
-    alignItems: 'center',
+    alignItems: 'flex-start',
     textAlign:  "center",
     height: "100%",
-    width: "100%"
+    width: "100%",
+    fontSize: 10,
   },
   sum: {
     alignItems: 'center',
     width: '100%',
-  }
+  },
+  
+  
 }));
 
 
@@ -76,45 +94,6 @@ const BillInfo = (prop) => {
     console.log(bill)
  
     const classes = useStyles();
- 
-    const ExpansionPanel = withStyles({
-        root: {
-          width:'auto',
-          padding: 0,
-          fontSize: 10,
-          margin: 1,
-        },
-      })(MuiExpansionPanel);
-      
-      const ExpansionPanelSummary = withStyles({
-        root: {
-          width:'auto',
-          padding: 0,
-          fontSize: 11,
-          margin: 0,
-          minHeight: 48,
-          '&$expanded': {
-             minHeight: 48,
-      },
-        },
-        content: {
-          '&$expanded': {
-            margin: 1,
-          },
-          display: 'contents',
-        },
-      })(MuiExpansionPanelSummary);
-      
-      const ExpansionPanelDetails = withStyles((theme) => ({
-        root: {
-            width:'auto',
-            padding: 0,
-            margin: 1,
-            minHeight: 48,
-            textAlign: "center",
-            fontSize: 10,
-        },
-      }))(MuiExpansionPanelDetails);
 
     async function fetchBill() {
         fetch(`https://api.propublica.org/congress/v1/116/bills/${id}.json`, myInit)
@@ -129,16 +108,17 @@ const BillInfo = (prop) => {
     }, []);
  
     return (
-        <div>
-        <ExpansionPanel key={bill['bill_id']} >
+       
+        <ExpansionPanel key={bill['bill_id']} classes={classes} >
 
           <ExpansionPanelSummary
                 aria-controls="panel1bh-content"
                 id="panel1bh-header"
+                className={classes.summary}
           >
-          <Grid container direction={"column"} className={classes.com} spacing={1}> 
+          <Grid container  className={classes.grid} direction={"column"} wrap={'wrap'}  spacing={1}> 
           <br></br>
-            <Grid container  spacing={1}> 
+            <Grid container wrap="wrap" spacing={0}> 
               
               <Grid item  xs={2} sm={2} >   
                   {/* <Paper> */}
@@ -157,14 +137,16 @@ const BillInfo = (prop) => {
               <Grid item  xs={8} sm={8}> 
                {/* <Paper> */}
                  <b><u>Summary</u></b> <br></br> 
-                 {bills.summary_short}
+                 <Paper className={classes.paper} >
+                 {bills.summary}
+                 </Paper>
                  {/* </Paper> */}
               </Grid>
   
                 <Grid item xs={2} sm={2}>    
                     
                     <b><u>Sponsor:</u></b> <br></br>
-                    <Paper>
+                    <Paper className={classes.paper}>
                       {bills.sponsor_name} ({bills.sponsor_party}) - {bills.sponsor_state} {bills.sponsor_title}
                      
                     </Paper>
@@ -176,9 +158,9 @@ const BillInfo = (prop) => {
             </Grid> 
             </ExpansionPanelSummary>
                     
-            <ExpansionPanelDetails>
+            <ExpansionPanelDetails className={classes.details}>
 
-            <Grid container direction={"column"} className={classes.com} spacing={1}> 
+            <Grid container direction={"column"} className={classes.grid} spacing={1}> 
             <br></br>
             <Grid container  spacing={1}> 
               
@@ -191,13 +173,13 @@ const BillInfo = (prop) => {
                 <Divider />
                   <br></br>
                   {bill.votes.map(vote => (
-                    <Paper>
+                    <Paper className={classes.paper}>
                       <b><u>{vote.chamber} Vote</u> </b>
                       <p>{vote.question} ({vote.date})</p>
-                      <p><u>Result: {vote.result}</u></p>
-                      <p>Y: {vote.total_yes}</p>
-                      <p>N: {vote.total_no}</p>
-                      <p>DNV: {vote.total_not_voting}</p>
+                      <p><u>Result: {vote.result}</u><br></br>
+                        Y: {vote.total_yes}<br></br>
+                        N: {vote.total_no}<br></br>
+                        DNV: {vote.total_not_voting}</p>
                     </Paper>
                   ))}
               
@@ -207,7 +189,7 @@ const BillInfo = (prop) => {
               </Grid>
         
               <Grid item  xs={8} sm={8}> 
-              {bills.summary}
+              {/* {bills.summary} */}
               </Grid>
   
                 <Grid item xs={2} sm={2}>    
@@ -238,7 +220,7 @@ const BillInfo = (prop) => {
           </ExpansionPanelDetails>
         </ExpansionPanel>
    
-        </div>
+   
     )
 }
 export default BillInfo
