@@ -81,7 +81,7 @@ const BillShow = ({bills}) => {
           <br></br><b>Summary:</b> <br></br>{
           bill.summary}<br></br>
           <b>Committee:</b><br></br>
-          bill.committees} <br></br>
+          bill.committees <br></br>
           <b>Actions:</b><br></br>
           {bill.latest_major_action}<br></br> 
           <b>Primary Subject:</b><br></br>

@@ -71,7 +71,6 @@ const SenateMembers = () => {
         <div  className={classes.root}>
             
             <Autocomplete
-              
                 multiple
                 limitTags={2}
                 id="multiple-limit-tags"
@@ -81,7 +80,6 @@ const SenateMembers = () => {
                 onChange={handleChange}
                 renderTags={(value, getTagProps) =>
                     value.map((option, index) => (
-                        
                         <Chip label={option.first_name.charAt(0) + "." + option.last_name.charAt(0) + "."} {...getTagProps({ index })} /> 
                     ))
                 }

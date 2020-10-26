@@ -1,4 +1,4 @@
-const initialState = { houseMembers: [], senateMember: [], bills: [], loading: false };
+const initialState = { houseMembers: [], senateMember: [], bills: [], loading: false, users: [], currentUser:[] };
 
 function rootReducer(state = initialState, action){
     switch(action.type) {
@@ -46,6 +46,21 @@ function rootReducer(state = initialState, action){
                 senateMembers: action.members,
                 houseMembers: action.members,
             }
+        case 'SET_USER':
+            return {
+                ...state,
+                currentUser: action.user
+            }
+        case 'CLEAR_USER':
+            return {
+                ...state,
+                currentUser: {}
+            };
+        case 'LOAD_USERS':
+            return {
+                ...state,
+                users: action.user
+            };
         default:
             return state;
         }
