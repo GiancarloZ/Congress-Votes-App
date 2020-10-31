@@ -16,8 +16,7 @@ const useStyles = makeStyles((theme) => ({
     root: {
       width: 'auto',
       padding: 0,
-      margin: theme.spacing(1),
-
+      margin: 0
     },
 }))
 
@@ -41,22 +40,21 @@ const MemberVotes = (prop) => {
     }, []);
 
     return (
-        <div>
+        <>
             {Object.keys(votes).length > 0 &&  
-               <ul className={classes.root}> {votes.slice(0, 5).map(vote => (
-                   <Paper className={classes.root}>
-                        <li key={vote.bill.bill_id}>
-                           {vote.bill.number}: {vote.position}<br></br>
-                           Result: {vote.result} <br></br>
-                           (Y: {vote.total.yes} N: {vote.total.no} NV: {vote.total.not_voting})
-                        </li>
-                        </Paper>
+               <> 
+               {votes.map(vote => (
+                   <Paper key={vote.bill.bill_id} className={classes.root}>
+                        {vote.bill.number}: {vote.position}<br></br>
+                        Result: {vote.result} <br></br>
+                        (Y: {vote.total.yes} N: {vote.total.no} NV: {vote.total.not_voting})
+                    </Paper>
                     ))}
-                </ul>
+                </>
        
             }
            
-        </div>
+        </>
     )
 
 } 

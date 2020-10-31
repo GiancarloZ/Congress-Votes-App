@@ -3,9 +3,9 @@ import config from '../config'
 
 import { makeStyles } from '@material-ui/core/styles';
 import { withStyles } from '@material-ui/core/styles';
-import MuiExpansionPanel from '@material-ui/core/ExpansionPanel';
-import MuiExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-import MuiExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import {Accordion, Paper, Typography, List, ListItem} from '@material-ui/core';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
 import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button';
 
@@ -28,37 +28,69 @@ const myInit = {
 
 const useStyles = makeStyles((theme) => ({
     root: {
-      width:265,
+      width: "100%",
       padding: 0,
       fontSize: 10,
       margin: 1,
-
+      alignItems: "center",
     },
-    ul: {
-      padding: 0,
-      margin: theme.spacing(3),
-
-    },
-    paper: {
-      padding: 0,
-    },
-    head: {
-      textAlign: 'left',
-    },
-    grid: {
-      alignContent: 'center',
-      alignItems: 'flex-start',
-      textAlign: 'center',
+    summary: {
       margin: 0,
-      width: '100%',
+      marginTop: 0,
+      marginBottom: 0,
+      padding: 0,
+      justifyContent: "space-evenly",
+      alignItems: "center",
+      textAlign: "center",
+      maxHeight: 66,
+      '&content': {
+        margin: "0px 0"
+      },
+      "&:last-child":{
+        margin: "0px 0"
+      },
+      overrides: {
+        MuiAccordionSummary:{
+          "&content":{
+            margin: "0px 0",
+            marginTop: 0,
+            marginBottom: 0,
+          }
+        }
+      },
     },
-    com: {
-      alignSelf: 'flex-start',
+    details: {
+      maxHeight: 520,
+      overflow: "hidden",
+      padding: 0
     },
     sum: {
-      alignItems: 'center',
-      width: '100%',
-      textAlign: 'center,'
+      height: "100%",
+      textAlign: 'flex-start'
+    },
+    paper: {
+      overflow: "auto",
+      height: 200,
+      width: "100%",
+      margin: 0,
+      textAlign: "center",
+      '&::-webkit-scrollbar': {
+        width: '0.1em'
+      },
+      '&::-webkit-scrollbar-track': {
+        boxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)',
+        webkitBoxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)'
+      },
+      '&::-webkit-scrollbar-thumb': {
+        backgroundColor: 'rgba(0,0,0,.1)',
+        outline: '1px solid slategrey'
+      }
+    },
+    vote: {
+      alignSelf: 'center'
+    },
+    grid: {
+      textAlign: 'center'
     }
   }));
 
@@ -74,43 +106,6 @@ const MemberInfo = (prop) => {
     console.log(member)
  
     const classes = useStyles();
- 
-    const ExpansionPanel = withStyles({
-      root: {
-        width:'auto',
-        padding: 0,
-        fontSize: 10,
-        margin: 1,
-        alignItems: 'center',
-        aligntContent: 'center',
-
-      },
-    })(MuiExpansionPanel);
-    
-    const ExpansionPanelSummary = withStyles({
-      root: {
-        width:'auto',
-        padding: 0,
-        fontSize: 12,
-        margin: 0,
-        alignItems: 'center',
-        height: 48,
-      },
-      content: {
-        display: 'contents',
-      },
-    })(MuiExpansionPanelSummary);
-    
-    const ExpansionPanelDetails = withStyles((theme) => ({
-      root: {
-          width:'auto',
-          padding: 0,
-          margin: 1,
-          minHeight: 48,
-          textAlign: "left",
-          fontSize: 10,
-      },
-    }))(MuiExpansionPanelDetails);
 
     async function fetchMember() {
         fetch(`https://api.propublica.org/congress/v1/members/${id}.json`, myInit)
@@ -125,21 +120,17 @@ const MemberInfo = (prop) => {
     }, []);
  
     return (
-        <div>
-          <ExpansionPanel  >
-            <ExpansionPanelSummary
+      <Accordion className={classes.root} >
+            <AccordionSummary
               // expandIcon={<ExpandMoreIcon />}                      
-              aria-controls="panel1bh-content"
-              id="panel1bh-header"                     
+              // aria-controls="panel1a-content"
+              id={membs.id}       
+              className={classes.summary}             
               // expandIcon={ <Headshot  member={member} />}
             >  
             <Grid container className={classes.sum} spacing={1} >
               <Grid item xs={2} sm={2}>
-                    {/* <Icon classes={{root: classes.iconRoot}}> */}
-                    {/* <AllMemberInfo  member={member}/> */}
-                    {/* <img alt='oval'  src="/Empty Oval.jpg" /> */}
-                    {/* <img className={classes.imageIcon} src="/Empty Oval.jpg"/>
-                    </Icon> */}
+                  {/* oval icon animation  */}
               </Grid>   
               <Grid item className={classes.sum} xs={6} sm={6}>
                 {membs.first_name + " " + membs.last_name} - ({membs.party})-{membs.state} 
@@ -152,68 +143,81 @@ const MemberInfo = (prop) => {
                 <b>Next <u>Election</u> {membs['next_election']}</b>
               </Grid>    
             </Grid>
-            </ExpansionPanelSummary>
+            </AccordionSummary>
           
-            <ExpansionPanelDetails>
+            <AccordionDetails className={classes.details}>
 
               {Object.keys(member).length > 0 &&  
                 <Grid container className={classes.grid} spacing={1} >  
                   <Grid container className={classes.grid} spacing={1} > 
-                      <Grid item className={classes.head} xs={12} sm={8}>                                     
-                          <a href={membs.url} target="_blank" >{membs.url}</a><br></br>
+                    <Grid item className={classes.grid} xs={12} sm={8}>  
+                    <Paper>                                   
+                          <a href={membs.url} target="_blank" >Homepage</a><br></br>
                           <b>Address:</b> {member['roles'][0]['office']}<br></br>
                           <b>Phone:</b> {member['roles'][0]['phone']}<br></br>
                           <b>Current Role:</b> {member['roles'][0]['title']} {member['roles'][0]['congress']} - {member['roles'][0]['state']} {member['roles'][0]['district']}
-                      </Grid>
+                      </Paper>
+                    </Grid>
                   
-                      <Grid item xs={12} sm={4}>
-                          {/* <br></br> */}
-                          Missed: {membs['missed_votes_pct']}%<br></br>
-                          w/ Party: {membs['votes_with_party_pct']}%<br></br>
-                          a/ Party: {membs['votes_against_party_pct']}%<br></br>                                  
-                      </Grid>
-                  </Grid>
-
-                  <Grid container className={classes.grid} spacing={1} >   
-                      <Grid item xs={12} sm={6}>
-                          <div><b>{member["first_name"]}'s Recent Bills</b><br></br></div>
-                          <MemberBills prop={id} />
-                      </Grid>  
-
-                      <Grid item xs={12} sm={6}>
-                          <div><b>{member["first_name"]}'s Recent Voting History</b><br></br></div>
-                          <MemberVotes prop={id} />
-                      </Grid>   
+                    <Grid item xs={12} sm={4}className={classes.grid} >
+                      <div style={{textAlign: 'center'}}><b><u>Vote %</u></b></div>
+                      <Paper className={classes.vote}>
+                        <b>Missed: {membs['missed_votes_pct']}%</b><br></br>
+                        <b>w/ Party: {membs['votes_with_party_pct']}%</b><br></br>
+                        <b> a/ Party: {membs['votes_against_party_pct']}</b>%<br></br>   
+                      </Paper>                             
+                    </Grid>
                   </Grid>
 
                   <Grid container className={classes.grid} spacing={1} > 
-                      <Grid item className={classes.com} xs={12} sm={6}>
-                          <div><b><u>Committees</u></b></div>
-                            { member["roles"][0]["committees"] &&
-                              <ul className={classes.ul}>
-                                {member["roles"][0]["committees"].map(comm => (                                                               
-                                      <li key={comm.code}>
-                                      {comm.name.replace(/&#39;/g,"'").replace(/&quot;/g,"'")}
-                                    </li>                                        
-                                  ))}
-                              </ul>
-                            }
+
+                    <Grid item xs={12} sm={6} className={classes.grid}>
+                      <div><b>{member["first_name"]}'s Recent Bills</b><br></br></div>
+                        <Paper className={classes.paper}>
+                          <MemberBills prop={id} />
+                        </Paper>
+                    </Grid>  
+
+                    <Grid item xs={12} sm={6}>
+                      <div><b>{member["first_name"]}'s Recent Votes</b><br></br></div>
+                        <Paper className={classes.paper}>
+                          <MemberVotes prop={id} />
+                        </Paper>
+                    </Grid>   
+                  </Grid>
+
+                  <Grid container className={classes.grid} spacing={1} > 
+                      <Grid item className={classes.grid} xs={12} sm={6}>
+                      <div><b><u>Committees</u></b></div>
+                      { member["roles"][0]["committees"] &&
+                      <Paper className={classes.paper}>
+                          {member["roles"][0]["committees"].map(comm => (                                                               
+                            <List key={comm.code} component="body2" variant="p">
+                              <ListItem>
+                            {comm.name.replace(/&#39;/g,"'").replace(/&quot;/g,"'")}
+                            </ListItem>
+                            </List>
+                                                             
+                            ))}
+                      </Paper>
+                      }
                       </Grid>  
                       
-                      <Grid item xs={12} sm={6}>                            
-                          <div><b><u>Recent Statements by {member["first_name"]}</u></b></div>                                    
-                          <MemberStatements prop={id} />                       
+                      <Grid item xs={12} sm={6}>  
+                      <div><b><u> {member["first_name"]}'s Recent Statements</u></b></div>   
+                      <Paper className={classes.paper}>                                                  
+                          <MemberStatements prop={id} />
+                      </Paper>                    
                       </Grid>
-              
                   </Grid>
+
                 </Grid>
               }
 
-            </ExpansionPanelDetails>
-          </ExpansionPanel>  
-        </div>
-    )
+            </AccordionDetails>
+    </Accordion> 
 
+    )
 } 
 export default MemberInfo
 

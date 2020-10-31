@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import config from '../config'
 
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 // import { withStyles } from '@material-ui/core/styles';
-import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import {Accordion, Card, List} from '@material-ui/core';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
+
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
@@ -23,64 +25,70 @@ const myInit = {
 }
 
 const useStyles = makeStyles((theme) => ({
-  expanded: {},
   root: {
-    width:'100%',
-    padding: 0,
-    fontSize: 10,
-    margin: 1,
-    height: 75,
-    display: "grid",
-    alignItems: 'flex-start',
-    alignContent: 'flex-start',
-    textAlign: "center",
-    "&$expanded": {
-      height: "auto",
-    },
+    textAlign: "center"
+    // overflow: "hidden", 
+    // textOverflow: "ellipsis",
+    //   '&$expanded': {
+    //     overflow: "scroll", textOverflow: "inherit",
+    //   },
+    //   expanded: {},
   },
+  
   summary:{
-    width:'auto',
-    padding: 0,
-    margin: 0,
-    height: 'auto',
-    // noWrap: "true",
-    expanded: {},
-    "& > :last-child": {
-      margin: 0,
-      "&$expanded": {
-        height: 100,
-      },
-    },
+    alignItems: "center",
+    maxHeight: 200,  
+    // textOverflow: "ellipsis",
+    // '&$expanded':{
+    //   overflow: "scroll",
+    //   textOverflow: "inherit"
+    // },
+    
   },
+  expanded: {},
   details: {
-    padding: 0,
-    margin: 0,
-    height: 'auto',
-    width: 'auto',
+    maxHeight: 400,
   },
   paper: {
-    // display: "contents",
+    // alignItems: "center",
   },
-  grid: {
-    width: 'auto',
-    height: 'auto',
-    display: "contents",
-    paddng: 0.5,
+  heading: {
+    overflow: "auto", 
+    // textOverflow: "ellipsis", 
+    // width: '100%'
+    maxHeight: 195,
+    '&::-webkit-scrollbar': {
+      width: '0.1em'
+    },
+    '&::-webkit-scrollbar-track': {
+      boxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)',
+      webkitBoxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)'
+    },
+    '&::-webkit-scrollbar-thumb': {
+      backgroundColor: 'rgba(0,0,0,.1)',
+      outline: '1px solid slategrey'
+    }
   },
-  com: {
-    alignItems: 'flex-start',
-    textAlign:  "center",
-    height: "100%",
-    width: "100%",
-    fontSize: 10,
-  },
-  sum: {
-    alignItems: 'center',
-    width: '100%',
-  },
-  
+  side: {
+    margin: 1,
+    overflow: "auto",
+    maxHeight: 395,
+    '&::-webkit-scrollbar': {
+      width: '0.1em'
+    },
+    '&::-webkit-scrollbar-track': {
+      boxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)',
+      webkitBoxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)'
+    },
+    '&::-webkit-scrollbar-thumb': {
+      backgroundColor: 'rgba(0,0,0,.1)',
+      outline: '1px solid slategrey'
+    }
+  }
   
 }));
+
+
 
 
 const BillInfo = (prop) => {
@@ -92,7 +100,7 @@ const BillInfo = (prop) => {
     console.log(id)
     console.log(prop)
     console.log(bill)
- 
+    console.log(bills)
     const classes = useStyles();
 
     async function fetchBill() {
@@ -106,121 +114,110 @@ const BillInfo = (prop) => {
     useEffect(() => {
         fetchBill();
     }, []);
- 
+    
+    const dateConv = (date) => {
+        let dateTime = date.split("-")
+        let year = dateTime[0]
+        let day = dateTime[2]
+        let month = dateTime[1]
+        
+        let newDate = month + "-" + day + "-" + year
+        return newDate
+    }
     return (
-       
-        <ExpansionPanel key={bill['bill_id']} classes={classes} >
-
-          <ExpansionPanelSummary
-                aria-controls="panel1bh-content"
-                id="panel1bh-header"
-                className={classes.summary}
-          >
-          <Grid container  className={classes.grid} direction={"column"} wrap={'wrap'}  spacing={1}> 
-          <br></br>
-            <Grid container wrap="wrap" spacing={0}> 
-              
-              <Grid item  xs={2} sm={2} >   
-                  {/* <Paper> */}
+      <Accordion key={bill['bill_id']} className={classes.root}  >
+        <AccordionSummary
+          aria-controls="panel1bh-content"
+          id="panel1bh-header"
+          className={classes.summary}   
+        >
+          <Grid container spacing={1}> 
+            <Grid container spacing={1}> 
+              <Grid item  xs={2} sm={2} >  
+                <Paper> 
+                  <Typography component="body2">
                     <b><u>Bill #:</u></b><br></br>
                     <b>{bills.number}</b> 
-                  {/* </Paper> */}
-         
+                  </Typography>
                   <Divider />
-                    
-                  
-                      <b><u>Date</u></b><br></br>   
-                      {bills.introduced_date} 
-          
+                  <Typography component="body2">
+                  <b><u>Date</u></b><br></br>   
+                  {dateConv(bills.introduced_date)}
+                  </Typography>
+                  <Divider />
+                  <Typography component="body2">
+                  <b><u>Votes</u></b><br></br> 
+                  There have been {bill.votes ? <b>{bill.votes.length}</b> : ''} vote(s)
+                  <Divider />
+                  </Typography>
+                </Paper>
               </Grid>
-        
-              <Grid item  xs={8} sm={8}> 
-               {/* <Paper> */}
-                 <b><u>Summary</u></b> <br></br> 
-                 <Paper className={classes.paper} >
-                 {bills.summary}
-                 </Paper>
-                 {/* </Paper> */}
+              <Grid item  xs={8} sm={8} style={{height: "100%"}}> 
+                <Paper className={classes.paper} > 
+                <Typography Wrap className={classes.heading}>
+                <b><u>Summary</u></b> <br></br>
+                {bills.summary}
+                </Typography>
+                </Paper>
               </Grid>
-  
-                <Grid item xs={2} sm={2}>    
-                    
-                    <b><u>Sponsor:</u></b> <br></br>
-                    <Paper className={classes.paper}>
-                      {bills.sponsor_name} ({bills.sponsor_party}) - {bills.sponsor_state} {bills.sponsor_title}
-                     
-                    </Paper>
-                </Grid>
-        
-           
+              <Grid item xs={2} sm={2}>    
+                <Paper className={classes.paper}>
+                <Typography component="body2">
+                  <b><u>Sponsor:</u></b> <br></br>
+                    {bills.sponsor_name} ({bills.sponsor_party}) - {bills.sponsor_state} {bills.sponsor_title}
+                  <Divider />
+                  <b><u>Actions</u></b><br></br>
+                  There have been {bill.actions ? <b>{bill.actions.length}</b> : ''} action(s)<br></br>
+                <Divider />
+                </Typography>
+                </Paper>
               </Grid>
-              <br></br> 
-            </Grid> 
-            </ExpansionPanelSummary>
-                    
-            <ExpansionPanelDetails className={classes.details}>
-
-            <Grid container direction={"column"} className={classes.grid} spacing={1}> 
-            <br></br>
-            <Grid container  spacing={1}> 
-              
-              <Grid item  xs={2} sm={2} >   
+            </Grid>
+          </Grid> 
+        </AccordionSummary>
+        <AccordionDetails className={classes.details}>
+          <Grid container  spacing={1}> 
+          <Grid container  spacing={1}> 
+            <Grid item xs={2} sm={2} style={{maxHeight: 400}}>        
               {Object.keys(bill).length > 0 &&
-              <div>
-                <b><u>Votes</u></b><br></br> 
-                <Divider />
-                There have been {bill.votes ? <b>{bill.votes.length}</b> : ''} vote(s)
-                <Divider />
-                  <br></br>
+                <div className={classes.side}>
                   {bill.votes.map(vote => (
-                    <Paper className={classes.paper}>
+                    <Paper className={classes.side}>
+                      <Typography component="body2">
                       <b><u>{vote.chamber} Vote</u> </b>
-                      <p>{vote.question} ({vote.date})</p>
+                      <p>{vote.question} {dateConv(vote.date)}</p>
                       <p><u>Result: {vote.result}</u><br></br>
                         Y: {vote.total_yes}<br></br>
                         N: {vote.total_no}<br></br>
                         DNV: {vote.total_not_voting}</p>
+                      </Typography>
                     </Paper>
                   ))}
-              
                 </div>
               }
-                 
-              </Grid>
-        
-              <Grid item  xs={8} sm={8}> 
-              {/* {bills.summary} */}
-              </Grid>
-  
-                <Grid item xs={2} sm={2}>    
-                    
-                  <b><u>Actions</u></b><br></br>
-                  <Divider />
-                  There have been {bill.actions ? <b>{bill.actions.length}</b> : ''} action(s)<br></br>
-                  <Divider />
-                    {Object.keys(bill).length > 0 &&
-                      <div>
-                          {bill.actions.map(action => (
-                            <Paper>
-                            <b><u>{action.chamber} Action</u></b> <br></br>
-                            <p>{action.action_type} ({action.datetime})</p>
-                            <p>{action.description}</p>
-                            </Paper>
-                          ))}
-                      
-                      </div>
-                    }
-                </Grid>
-        
-           
-              </Grid>
-              <br></br> 
-            </Grid> 
-
-          </ExpansionPanelDetails>
-        </ExpansionPanel>
-   
-   
+            </Grid>
+            <Grid item  xs={8} sm={8}> 
+            </Grid>
+            <Grid item xs={2} sm={2} style={{maxHeight: 400}}>        
+              {Object.keys(bill).length > 0 &&
+                <div className={classes.side}>
+                    {bill.actions.map(action => (
+                      <Paper className={classes.side} >
+                      <Typography component="body2" >
+                      <b><u>{action.chamber} Action</u></b> <br></br>
+                      <p>{action.action_type} <br></br>{dateConv(action.datetime)}</p>
+                      <p>{action.description}</p>
+                      </Typography>
+                      </Paper>
+                    ))}
+                
+                </div>
+              }
+            </Grid>
+          </Grid>
+          </Grid> 
+        </AccordionDetails>
+      </Accordion>
     )
 }
 export default BillInfo

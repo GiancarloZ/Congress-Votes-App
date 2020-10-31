@@ -19,8 +19,6 @@ const useStyles = makeStyles((theme) => ({
       width:  120,
       margin: 0,
       padding: 0,
-      margin: theme.spacing(1),
-
     },
 }))
 
@@ -45,20 +43,27 @@ const MemberStatements = (prop) => {
         fetchStatements();
     }, []);
 
+    const dateConv = (date) => {
+        let dateTime = date.split("-")
+        let year = dateTime[0]
+        let day = dateTime[2]
+        let month = dateTime[1]
+        
+        let newDate = month + "-" + day + "-" + year
+        return newDate
+    }
     return (
-        <div>
+        <>
            {Object.keys(statements).length > 0 &&  
-               <ul className={classes.root}> {statements.slice(0, 5).map(statement => (
-                   <Paper className={classes.root}>
-                        <li key={statements.title}>
-                            {statement.date}: <a href={statement.url} target="_blank">{statement.title.replace(/&#39;/g,"'").replace(/&quot;/g,"'")}</a>
-                        </li>
-                        </Paper>
-                    ))}
-                </ul>
-       
+            <>
+               {statements.map(statement => (
+                   <Paper key={statements.title} className={classes.root}>
+                        {dateConv(statement.date)}: <a href={statement.url} target="_blank">{statement.title.replace(/&#39;/g,"'").replace(/&quot;/g,"'")}</a>
+                    </Paper>
+                ))}
+            </>
             } 
-        </div>
+        </>
     )
 
 } 

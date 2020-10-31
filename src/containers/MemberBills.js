@@ -19,8 +19,6 @@ const useStyles = makeStyles((theme) => ({
       width:  120,
       margin: 0,
       padding: 0,
-      margin: theme.spacing(1),
-
     },
 }))
 
@@ -45,24 +43,30 @@ const MemberBills = (prop) => {
     useEffect(() => {
         fetchBills();
     }, []);
-
+    const dateConv = (date) => {
+        let dateTime = date.split("-")
+        let year = dateTime[0]
+        let day = dateTime[2]
+        let month = dateTime[1]
+        
+        let newDate = month + "-" + day + "-" + year
+        return newDate
+    }
     return (
-        <div>
-            {Object.keys(bills).length > 0 &&  
-               <ul className={classes.root}> {bills.slice(0, 5).map(bill => (
-                   <Paper className={classes.root}>
-                        <li key={bill.bill_id}>
-                           <b>{bill.number}: {bill.introduced_date}</b><br></br>
-                           Co-sponsors:<br></br>
-                           D: {bill.cosponsors_by_party.D} <br></br>
-                           R: {bill.cosponsors_by_party.R} 
-                       
-                        </li>
-                        </Paper>
-                    ))}
-                </ul>
-            }
-        </div>
+    <>
+        {Object.keys(bills).length > 0 &&  
+           <>
+            {bills.map(bill => (
+                   <Paper key={bill.bill_id} className={classes.root}>
+                        <b>{bill.number}: {dateConv(bill.introduced_date)}</b><br></br>
+                        Co-sponsors:<br></br>
+                        D: {bill.cosponsors_by_party.D} <br></br>
+                        R: {bill.cosponsors_by_party.R} 
+                    </Paper>
+            ))}
+            </>
+        }   
+    </>
     )
 }
 export default MemberBills

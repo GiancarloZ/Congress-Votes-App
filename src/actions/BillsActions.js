@@ -68,36 +68,41 @@ const Bills = () => {
     
     
     return (
-        
-        <div  className={classes.root}>
-            <Autocomplete
-                multiple
-                limitTags={4}
-                id="Bills"
-                options={bills || []}
-                getOptionLabel={(option) => option.number +" - " + option.short_title}
-                defaultValue={bills}
-                onChange={handleChange}
-                renderTags={(value, getTagProps) =>
-                    value.map((option, index) => (
-                        <Chip label={option.number}{...getTagProps({ index })} /> 
-                    ))
-                }
-                renderInput={(params) => (
-                <TextField
-                    {...params}
-                    variant="standard"
-                    label="Select Bills"
-                    placeholder="You can choose as many as you'd like"
-                />
-                )}
-            />
-             {Object.keys(selectedBills).length > 0 &&
-                selectedBills.map((bills) => {
-                    return <BillInfo props={bills}/>
-                })
+    <>
+        <div className={classes.root}>
+        <Autocomplete
+            multiple
+            limitTags={4}
+            id="Bills"
+            options={bills || []}
+            getOptionLabel={(option) => option.number +" - " + option.short_title}
+            defaultValue={bills}
+            onChange={handleChange}
+            renderTags={(value, getTagProps) =>
+                value.map((option, index) => (
+                    <Chip label={option.number}{...getTagProps({ index })} /> 
+                ))
             }
+            renderInput={(params) => (
+            <TextField
+                {...params}
+                variant="standard"
+                label="Select Bills"
+                placeholder="You can choose as many as you'd like"
+            />
+            )}
+        />
+    </div >
+    <div className={classes.root}>
+
+        {Object.keys(selectedBills).length > 0 &&
+        selectedBills.map((bills) => {
+            return <BillInfo props={bills}/>
+        })
+        }
         </div>
+    </>
+     
     );
 }
 export default Bills  

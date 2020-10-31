@@ -34,9 +34,7 @@ const Headshot = (prop) => {
    
     console.log(headshot)
     return (
-        <div className={classes.sub}>
             <Avatar alt={prop.first_name}  src={headshot} />
-        </div>
     )
 }
 export default Headshot
