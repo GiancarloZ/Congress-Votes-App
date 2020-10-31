@@ -16,7 +16,7 @@ const myInit = {
 
 const useStyles = makeStyles((theme) => ({
     root: {
-      width:  120,
+      width: "100%",
       margin: 0,
       padding: 0,
     },

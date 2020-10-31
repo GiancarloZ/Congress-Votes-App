@@ -87,10 +87,16 @@ const useStyles = makeStyles((theme) => ({
       }
     },
     vote: {
-      alignSelf: 'center'
+      alignSelf: 'center',
+      height: "75%",
+      margin: 1,
+      paddingTop: 5,
     },
     grid: {
       textAlign: 'center'
+    },
+    add: {
+      padding: 2
     }
   }));
 
@@ -125,7 +131,7 @@ const MemberInfo = (prop) => {
               // expandIcon={<ExpandMoreIcon />}                      
               // aria-controls="panel1a-content"
               id={membs.id}       
-              className={classes.summary}             
+              // className={classes.summary}             
               // expandIcon={ <Headshot  member={member} />}
             >  
             <Grid container className={classes.sum} spacing={1} >
@@ -148,10 +154,10 @@ const MemberInfo = (prop) => {
             <AccordionDetails className={classes.details}>
 
               {Object.keys(member).length > 0 &&  
-                <Grid container className={classes.grid} spacing={1} >  
-                  <Grid container className={classes.grid} spacing={1} > 
-                    <Grid item className={classes.grid} xs={12} sm={8}>  
-                    <Paper>                                   
+                <Grid container className={classes.add} spacing={1} >  
+                  <Grid container className={classes.add} spacing={1} > 
+                    <Grid item className={classes.add} xs={12} sm={8}>  
+                    <Paper style={{textAlign: 'flex-start'}}>                                   
                           <a href={membs.url} target="_blank" >Homepage</a><br></br>
                           <b>Address:</b> {member['roles'][0]['office']}<br></br>
                           <b>Phone:</b> {member['roles'][0]['phone']}<br></br>
@@ -160,7 +166,7 @@ const MemberInfo = (prop) => {
                     </Grid>
                   
                     <Grid item xs={12} sm={4}className={classes.grid} >
-                      <div style={{textAlign: 'center'}}><b><u>Vote %</u></b></div>
+                      <div className={classes.grid}><b><u>Vote Percentages</u></b><br></br></div>
                       <Paper className={classes.vote}>
                         <b>Missed: {membs['missed_votes_pct']}%</b><br></br>
                         <b>w/ Party: {membs['votes_with_party_pct']}%</b><br></br>
@@ -171,14 +177,14 @@ const MemberInfo = (prop) => {
 
                   <Grid container className={classes.grid} spacing={1} > 
 
-                    <Grid item xs={12} sm={6} className={classes.grid}>
+                    <Grid item xs={12} xs={6} className={classes.grid}>
                       <div><b>{member["first_name"]}'s Recent Bills</b><br></br></div>
                         <Paper className={classes.paper}>
                           <MemberBills prop={id} />
                         </Paper>
                     </Grid>  
 
-                    <Grid item xs={12} sm={6}>
+                    <Grid item xs={12} xs={6}>
                       <div><b>{member["first_name"]}'s Recent Votes</b><br></br></div>
                         <Paper className={classes.paper}>
                           <MemberVotes prop={id} />
