@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import config from '../config'
 import Paper from '@material-ui/core/Paper';
-
+import MemberBill from '../components/MemberBill'
 const myHeaders = {
     'X-API-Key': config.PP_KEY
 }
@@ -57,12 +57,7 @@ const MemberBills = (prop) => {
         {Object.keys(bills).length > 0 &&  
            <>
             {bills.map(bill => (
-                   <Paper key={bill.bill_id} className={classes.root}>
-                        <b>{bill.number}: {dateConv(bill.introduced_date)}</b><br></br>
-                        Co-sponsors:<br></br>
-                        D: {bill.cosponsors_by_party.D} <br></br>
-                        R: {bill.cosponsors_by_party.R} 
-                    </Paper>
+                  <MemberBill bill={bill}/>
             ))}
             </>
         }   

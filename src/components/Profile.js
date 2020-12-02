@@ -5,7 +5,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 
-const Avatar = props => {
+const Profile = props => {
     const { handleMenu, anchorEl, handleClose, open } = props;
     return (
         <div>
@@ -39,4 +39,4 @@ const Avatar = props => {
             </div>
     )
 }
-export default Avatar
+export default Profile

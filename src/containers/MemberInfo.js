@@ -88,9 +88,8 @@ const useStyles = makeStyles((theme) => ({
     },
     vote: {
       alignSelf: 'center',
-      height: "75%",
+      height: "100%",
       margin: 1,
-      paddingTop: 5,
     },
     grid: {
       textAlign: 'center'
@@ -135,17 +134,16 @@ const MemberInfo = (prop) => {
               // expandIcon={ <Headshot  member={member} />}
             >  
             <Grid container className={classes.sum} spacing={1} >
-              <Grid item xs={2} sm={2}>
-                  {/* oval icon animation  */}
-              </Grid>   
+              {/* <Grid item xs={2} sm={2}>
+              </Grid>    */}
               <Grid item className={classes.sum} xs={6} sm={6}>
                 {membs.first_name + " " + membs.last_name} - ({membs.party})-{membs.state} 
                 <br></br> {membs.title}
               </Grid>    
-              <Grid item xs={2} sm={2}>
+              <Grid item xs={3} sm={3}>
                 <Headshot prop={id} />
               </Grid>    
-              <Grid item xs={2} sm={2}>
+              <Grid item xs={3} sm={3}>
                 <b>Next <u>Election</u> {membs['next_election']}</b>
               </Grid>    
             </Grid>
@@ -165,9 +163,9 @@ const MemberInfo = (prop) => {
                       </Paper>
                     </Grid>
                   
-                    <Grid item xs={12} sm={4}className={classes.grid} >
-                      <div className={classes.grid}><b><u>Vote Percentages</u></b><br></br></div>
+                    <Grid item xs={12} sm={4}className={classes.grid} >            
                       <Paper className={classes.vote}>
+                      <div className={classes.grid}><b><u>Vote %</u></b><br></br></div>
                         <b>Missed: {membs['missed_votes_pct']}%</b><br></br>
                         <b>w/ Party: {membs['votes_with_party_pct']}%</b><br></br>
                         <b> a/ Party: {membs['votes_against_party_pct']}</b>%<br></br>   
@@ -193,7 +191,7 @@ const MemberInfo = (prop) => {
                   </Grid>
 
                   <Grid container className={classes.grid} spacing={1} > 
-                      <Grid item className={classes.grid} xs={12} sm={6}>
+                      <Grid item className={classes.grid} xs={12} sm={6} xs={6}>
                       <div><b><u>Committees</u></b></div>
                       { member["roles"][0]["committees"] &&
                       <Paper className={classes.paper}>
@@ -209,7 +207,7 @@ const MemberInfo = (prop) => {
                       }
                       </Grid>  
                       
-                      <Grid item xs={12} sm={6}>  
+                      <Grid item xs={12} sm={6} xs={6}>  
                       <div><b><u> {member["first_name"]}'s Recent Statements</u></b></div>   
                       <Paper className={classes.paper}>                                                  
                           <MemberStatements prop={id} />

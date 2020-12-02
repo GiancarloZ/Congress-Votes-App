@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import MemberVote from '../components/MemberVote'
 import config from '../config'
-import Paper from '@material-ui/core/Paper';
+
 const myHeaders = {
     'X-API-Key': config.PP_KEY
 }
@@ -12,19 +12,12 @@ const myInit = {
     mode: 'cors',
     cache: 'default'
 }
-const useStyles = makeStyles((theme) => ({
-    root: {
-      width: '100%',
-      padding: 0,
-      margin: 0
-    },
-}))
+
 
 const MemberVotes = (prop) => {
     const [id, setId] = useState(prop.prop)
     const [hasError, setErrors] = useState(false)
     const [votes, setVotes] = useState([])
-    const classes = useStyles();
     console.log(votes)
 
     async function fetchVotes() {
@@ -44,11 +37,7 @@ const MemberVotes = (prop) => {
             {Object.keys(votes).length > 0 &&  
                <> 
                {votes.map(vote => (
-                   <Paper key={vote.bill.bill_id} className={classes.root}>
-                        {vote.bill.number}: {vote.position}<br></br>
-                        Result: {vote.result} <br></br>
-                        (Y: {vote.total.yes} N: {vote.total.no} NV: {vote.total.not_voting})
-                    </Paper>
+                   <MemberVote vote={vote}/>
                     ))}
                 </>
        
