@@ -1,7 +1,7 @@
 // API CONSTANTS
 
 const BASE_URL = 'http://localhost:3001/api/v1/';
-const HEROKU_URL = "https://congress-votes-rails-api.herokuapp.com"
+const HEROKU_URL = "https://congress-votes-rails-api.herokuapp.com/api/v1/"
 const USERS_URL = BASE_URL + '/users';
 const SPECIFIC_USER_URL = id => USERS_URL + '/' + id;
 
