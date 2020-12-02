@@ -1,6 +1,6 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
+import{ Paper, Typography} from '@material-ui/core';
 const useStyles = makeStyles((theme) => ({
     root: {
       width: "100%",
@@ -21,7 +21,9 @@ const MemberStatement = (statement) => {
     }
     return (
         <Paper key={statement.statement.title} className={classes.root}>
+                  <Typography Wrap className={classes.heading}  variant="p">
         {dateConv(statement.statement.date)}: <a href={statement.statement.url} target="_blank">{statement.statement.title.replace(/&#39;/g,"'").replace(/&quot;/g,"'")}</a>
+        </Typography>
         </Paper>
 
     )

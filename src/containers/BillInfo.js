@@ -138,12 +138,16 @@ const BillInfo = (prop) => {
           className={classes.summary}   
         >
           <Grid container spacing={1}> 
+            <Typography component="p" variant="p">
               <BillShow bill={bill} bills={bills}/>
+              </Typography>
           </Grid> 
         </AccordionSummary>
         <AccordionDetails className={classes.details}>
-          <Grid container  spacing={1}> 
+          <Grid container  spacing={1}>  
+          <Typography component="p" variant="p">
             <BillDetails bill={bill} bills={bills}/>
+          </Typography>
           </Grid> 
         </AccordionDetails>
       </Accordion>

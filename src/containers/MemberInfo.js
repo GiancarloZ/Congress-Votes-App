@@ -33,37 +33,22 @@ const useStyles = makeStyles((theme) => ({
       fontSize: 10,
       margin: 1,
       alignItems: "center",
+      "&$expanded":{
+        margin: 0,
+      },
+   
     },
-    summary: {
-      margin: 0,
-      marginTop: 0,
-      marginBottom: 0,
-      padding: 0,
-      justifyContent: "space-evenly",
-      alignItems: "center",
-      textAlign: "center",
-      maxHeight: 66,
-      '&content': {
-        margin: "0px 0"
-      },
-      "&:last-child":{
-        margin: "0px 0"
-      },
-      overrides: {
-        MuiAccordionSummary:{
-          "&content":{
-            margin: "0px 0",
-            marginTop: 0,
-            marginBottom: 0,
-          }
-        }
-      },
-    },
+    expanded:{},
     details: {
       maxHeight: 520,
       overflow: "hidden",
-      padding: 0
+      padding: 0,
+      margin: 1,
+      expanded:{
+        display: "none"
+      }
     },
+    // expanded: {display: "none"},
     sum: {
       height: "100%",
       textAlign: 'flex-start'
@@ -96,7 +81,11 @@ const useStyles = makeStyles((theme) => ({
     },
     add: {
       padding: 2
-    }
+    },
+    heading: {
+     fontSize: "0.875rem"
+    },
+   
   }));
 
 const MemberInfo = (prop) => {
@@ -125,26 +114,26 @@ const MemberInfo = (prop) => {
     }, []);
  
     return (
-      <Accordion className={classes.root} >
+      <Accordion classes={{root: classes.root, expanded: classes.expanded}} >
             <AccordionSummary
-              // expandIcon={<ExpandMoreIcon />}                      
-              // aria-controls="panel1a-content"
               id={membs.id}       
-              // className={classes.summary}             
-              // expandIcon={ <Headshot  member={member} />}
             >  
             <Grid container className={classes.sum} spacing={1} >
               {/* <Grid item xs={2} sm={2}>
               </Grid>    */}
               <Grid item className={classes.sum} xs={6} sm={6}>
+              <Typography Wrap className={classes.heading}  variant="p">
                 {membs.first_name + " " + membs.last_name} - ({membs.party})-{membs.state} 
                 <br></br> {membs.title}
+                </Typography>
               </Grid>    
               <Grid item xs={3} sm={3}>
                 <Headshot prop={id} />
               </Grid>    
               <Grid item xs={3} sm={3}>
+              <Typography Wrap className={classes.heading}  variant="p">
                 <b>Next <u>Election</u> {membs['next_election']}</b>
+                </Typography>
               </Grid>    
             </Grid>
             </AccordionSummary>
@@ -155,20 +144,24 @@ const MemberInfo = (prop) => {
                 <Grid container className={classes.add} spacing={1} >  
                   <Grid container className={classes.add} spacing={1} > 
                     <Grid item className={classes.add} xs={12} sm={8}>  
-                    <Paper style={{textAlign: 'flex-start'}}>                                   
+                    <Paper style={{textAlign: 'flex-start'}}>    
+                    <Typography Wrap className={classes.heading}  variant="p">                               
                           <a href={membs.url} target="_blank" >Homepage</a><br></br>
                           <b>Address:</b> {member['roles'][0]['office']}<br></br>
                           <b>Phone:</b> {member['roles'][0]['phone']}<br></br>
                           <b>Current Role:</b> {member['roles'][0]['title']} {member['roles'][0]['congress']} - {member['roles'][0]['state']} {member['roles'][0]['district']}
+                          </Typography>
                       </Paper>
                     </Grid>
                   
                     <Grid item xs={12} sm={4}className={classes.grid} >            
                       <Paper className={classes.vote}>
+                      <Typography Wrap className={classes.heading}  variant="p">
                       <div className={classes.grid}><b><u>Vote %</u></b><br></br></div>
-                        <b>Missed: {membs['missed_votes_pct']}%</b><br></br>
-                        <b>w/ Party: {membs['votes_with_party_pct']}%</b><br></br>
-                        <b> a/ Party: {membs['votes_against_party_pct']}</b>%<br></br>   
+                        <u>Missed:</u> <b> {membs['missed_votes_pct']}%</b><br></br>
+                        <u>w/ Party:</u> <b> {membs['votes_with_party_pct']}%</b><br></br>
+                        <u>a/ Party:</u>  <b>{membs['votes_against_party_pct']}</b>%<br></br>  
+                        </Typography> 
                       </Paper>                             
                     </Grid>
                   </Grid>
@@ -176,41 +169,52 @@ const MemberInfo = (prop) => {
                   <Grid container className={classes.grid} spacing={1} > 
 
                     <Grid item xs={12} xs={6} className={classes.grid}>
-                      <div><b>{member["first_name"]}'s Recent Bills</b><br></br></div>
                         <Paper className={classes.paper}>
+                          
+                        <Typography Wrap className={classes.heading}  variant="p">
+                          <div><b><u>{member["first_name"]}'s Bills</u></b><br></br></div>
                           <MemberBills prop={id} />
+                          </Typography>
                         </Paper>
                     </Grid>  
 
                     <Grid item xs={12} xs={6}>
-                      <div><b>{member["first_name"]}'s Recent Votes</b><br></br></div>
                         <Paper className={classes.paper}>
+                        <Typography Wrap className={classes.heading}  variant="p">
+                        <div><b><u>{member["first_name"]}'s Votes</u></b><br></br></div>
                           <MemberVotes prop={id} />
+                          </Typography>
                         </Paper>
                     </Grid>   
                   </Grid>
 
                   <Grid container className={classes.grid} spacing={1} > 
                       <Grid item className={classes.grid} xs={12} sm={6} xs={6}>
-                      <div><b><u>Committees</u></b></div>
+                     
                       { member["roles"][0]["committees"] &&
-                      <Paper className={classes.paper}>
-                          {member["roles"][0]["committees"].map(comm => (                                                               
-                            <List key={comm.code} component="body2" variant="p">
-                              <ListItem>
-                            {comm.name.replace(/&#39;/g,"'").replace(/&quot;/g,"'")}
-                            </ListItem>
-                            </List>
-                                                             
+                      <Paper variant="outlined" className={classes.paper}>
+                         <Typography Wrap className={classes.heading}  variant="p">  
+                            <b><u>Committees</u></b>
+                          </Typography> 
+                          {member["roles"][0]["committees"].map(comm => (        
+                              <Typography Wrap className={classes.heading}  variant="p">                                           
+                                <List key={comm.code} component="body2" variant="p">
+                                  <ListItem>
+                                {comm.name.replace(/&#39;/g,"'").replace(/&quot;/g,"'")}
+                                </ListItem>
+                                </List>
+                              </Typography>                             
                             ))}
                       </Paper>
                       }
                       </Grid>  
                       
                       <Grid item xs={12} sm={6} xs={6}>  
-                      <div><b><u> {member["first_name"]}'s Recent Statements</u></b></div>   
-                      <Paper className={classes.paper}>                                                  
+                      <Paper variant="outlined" className={classes.paper}>       
+                          <Typography Wrap className={classes.heading}  variant="p">    
+                          <b><u> {member["first_name"]}'s Statements</u></b>                                       
                           <MemberStatements prop={id} />
+                          </Typography>
                       </Paper>                    
                       </Grid>
                   </Grid>

@@ -1,5 +1,5 @@
 import React from 'react'
-import Paper from '@material-ui/core/Paper';
+import { Paper, Typography, Card, CardContent } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
@@ -7,6 +7,14 @@ const useStyles = makeStyles((theme) => ({
       width:  "100%",
       margin: 0,
       padding: 0,
+      paddingBottom: 0,
+    },
+    content:{
+        padding: 0,
+        paddingBottom: 0,
+        '&:last-child': {
+            paddingBottom: 0
+        }
     },
 }))
 const MemberBill = (bill) => {
@@ -23,12 +31,18 @@ const MemberBill = (bill) => {
     }
     return (
     <>
-        <Paper key={bill.bill.bill_id} className={classes.root}>
-            <b>{bill.bill.number}: {dateConv(bill.bill.introduced_date)}</b><br></br>
+        <Card raised key={bill.bill.bill_id} className={classes.root}>
+            <CardContent className={classes.content}>        
+            <Typography Wrap className={classes.heading}  variant="p">
+            <b><u>{bill.bill.number}</u> </b><br></br>
+            {dateConv(bill.bill.introduced_date)}<br></br>
             Co-sponsors:<br></br>
             D: {bill.bill.cosponsors_by_party.D ? bill.bill.cosponsors_by_party.D : 0} <br></br>
             R: {bill.bill.cosponsors_by_party.R ? bill.bill.cosponsors_by_party.R : 0} 
-        </Paper>
+            </Typography>
+            </CardContent>
+
+        </Card>
     </>
     )
 }

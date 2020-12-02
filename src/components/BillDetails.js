@@ -10,28 +10,32 @@ import Divider from '@material-ui/core/Divider';
 
 const useStyles = makeStyles({
     root: {
-      width:580,
+    //   width:580,
       padding: 0,
       fontSize: 10,
       margin: 0,
     },
     paper:{
-      maxHeight: 400,
-      padding:1,
-    //   margin: 0.5,
-      width: "100%",
+      maxHeight: 395,
+      padding:2,
+      paddingBottom: 0,
+      '&:last-child': {
+        padding: 0,
+        paddingBottom: 0,
+      },
       overflow: "auto", 
       '&::-webkit-scrollbar': {
         width: '0.1em'
       },
       '&::-webkit-scrollbar-track': {
-        boxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)',
+        boxShadow: 'inset 6px 6px 6px rgba(0,0,0,0.00)',
         webkitBoxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)'
       },
       '&::-webkit-scrollbar-thumb': {
         backgroundColor: 'rgba(0,0,0,.1)',
         outline: '1px solid slategrey'
-      }
+      },
+      
     },
     heading: {
       // textOverflow: "ellipsis", 
@@ -68,17 +72,17 @@ const BillDetails = ({bill, bills}) => {
         return newDate
     }
     return (
-        <Grid container  spacing={1}> 
-            <Grid item xs={6} sm={6} style={{maxHeight: 400}}>        
+        <Grid container  spacing={0}> 
+            <Grid item xs={6} style={{maxHeight: 395}}>        
               {Object.keys(bill).length > 0 &&
                 <div className={classes.side}>
                   {bill.votes.map(vote => (
-                    <Card raised className={classes.paper}>
-                        <CardContent>
-                      <Typography component="body2">
+                    <Card variant="outlined" className={classes.paper}>
+                        <CardContent style={{ paddingBottom: 0, padding: 1,  margin: 0}} >
+                      <Typography component="p" variant="p">
                       <b><u>{vote.chamber} Vote</u> </b>
                       <p>{vote.question}<br></br> {dateConv(vote.date)}</p>
-                      <p><u>Result: {vote.result}</u><br></br>
+                      <p><b><u>Result: {vote.result}</u></b><br></br>
                         YES: {vote.total_yes}<br></br>
                         NO: {vote.total_no}<br></br>
                         DID NOT VOTE: {vote.total_not_voting}</p>
@@ -91,15 +95,16 @@ const BillDetails = ({bill, bills}) => {
             </Grid>
             {/* <Grid item  xs={6} sm={6}> 
             </Grid> */}
-            <Grid item xs={6} sm={6} style={{maxHeight: 400}}>        
+            <Grid item xs={6} sm={6} style={{maxHeight: 395}}>        
               {Object.keys(bill).length > 0 &&
                 <div className={classes.side}>
                     {bill.actions.map(action => (
-                    <Card raised className={classes.paper}>
-                    <CardContent>
-                      <Typography component="body2" >
+                    <Card  variant="outlined" className={classes.paper}>
+                    <CardContent style={{ paddingBottom: 0, padding: 0, margin: 0}}>
+                      <Typography component="p"  variant="p" >
                       <b><u>{action.chamber} Action</u></b> <br></br>
-                      <p>{action.action_type} <br></br>{dateConv(action.datetime)}</p>
+                      <p>{action.action_type}</p>
+                      {dateConv(action.datetime)}
                       <p>{action.description}</p>
                       </Typography>
                       </CardContent>

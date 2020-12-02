@@ -1,6 +1,6 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
+import {Paper, Typography} from '@material-ui/core';
 const useStyles = makeStyles((theme) => ({
     root: {
       width: '100%',
@@ -13,9 +13,11 @@ const MemberVote = (vote) => {
 
     return (
         <Paper key={vote.vote.bill.bill_id} className={classes.root}>
-        {vote.vote.bill.number}: {vote.vote.position}<br></br>
+        <Typography Wrap className={classes.heading}  variant="p">
+        {vote.vote.bill.number}: <b> {vote.vote.position}</b><br></br>
         Result: {vote.vote.result} <br></br>
         (Y: {vote.vote.total.yes} N: {vote.vote.total.no} NV: {vote.vote.total.not_voting})
+        </Typography>
          </Paper>
     )
 }

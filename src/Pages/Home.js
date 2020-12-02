@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
 
   },
   header: {
-    padding: theme.spacing(1),
+    padding: 1,
     color: theme.palette.text.secondary,
     textAlign: 'center',
     fontSize: 18,
@@ -29,11 +29,12 @@ const useStyles = makeStyles((theme) => ({
     alignSelf: 'center'
   },
   grid: {
-    padding: 1,
-    display: "flex"
+    // padding: 1,
+    display: "flex",
+    width: "100%",
   },
   login: {
-    padding: theme.spacing(1),
+    padding: 1,
     color: theme.palette.text.secondary,
     textAlign: 'left',
     fontSize: 18,
@@ -41,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
     alignSelf: 'center'
   },
   profile: {
-    padding: theme.spacing(1),
+    padding: 1,
     color: theme.palette.text.secondary,
     textAlign: 'end',
     fontSize: 18,
@@ -70,14 +71,14 @@ const Home = (props) => {
       <AppBar position={'inherit'} color={'white'} className={classes.grid} spacing={1} >
         <Toolbar disableGutters >
           <Grid container  >
-            <Grid item  xs={12} sm={3} className={classes.login}>
+            <Grid item  xs={12} sm={3}className={classes.login}>
               <Signup  history={history}/>
               <LoginPage  history={history}/>
             </Grid>
-            <Grid item  xs={12} sm={6}className={classes.header}>
+            <Grid item  xs={12} sm={6}  className={classes.header}>
                 <b><u>116th Congress</u></b>
             </Grid>
-            <Grid  xs={12} sm={3} className={classes.profile} >
+            <Grid  xs={12} sm={2}  className={classes.profile} >
               <Profile handleClose={handleClose} handleMenu={handleMenu} anchorEl={anchorEl} open={open} />
             </Grid>
           </Grid>

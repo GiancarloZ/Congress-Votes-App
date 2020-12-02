@@ -37,7 +37,10 @@ const useStyles = makeStyles({
     // height: "100%",
     
   },
-  
+  grid: {
+    display: "flex",
+    width: "100%",
+  }
 });
 
 const BillShow = ({bill, bills}) => {
@@ -52,47 +55,51 @@ const BillShow = ({bill, bills}) => {
     return newDate
 }
   return (
-  <Grid container spacing={1}> 
+  <Grid container className={classes.grid} spacing={1}> 
       <Grid item  xs={2} sm={2} >  
         <Card style={{width: "100%"}} > 
           <CardContent style={{padding: 0}}>
-            <Typography component="body2">
+            <Typography component="p"  variant="p">
               <b><u>Bill #:</u></b><br></br>
               <b>{bills.number}</b> 
             </Typography>
             <Divider />
-            <Typography component="body2">
+            <Typography component="p" variant="p">
             <b><u>Date</u></b><br></br>   
             {dateConv(bills.introduced_date)}
             </Typography>
             <Divider />
-            <Typography component="body2">
+            <Typography component="p" variant="p">
             <b><u>Votes</u></b><br></br> 
             There have been {bill.votes ? <b>{bill.votes.length}</b> : ''} vote(s)
+            </Typography>
+            <Divider />
+          </CardContent>
+        </Card>
+      </Grid>
+      <Grid item  xs={8} sm={8} > 
+        <Card elevation={0} className={classes.paper} > 
+          <CardContent style={{padding: 0}}>
+          <Typography Wrap className={classes.heading}  variant="p">
+            <b><u>Summary</u></b> <br></br>
+            {bills.summary}
+          </Typography>
+          </CardContent>
+        </Card>
+      </Grid>
+      <Grid item xs={2} sm={2}>    
+        <Card className={classes.paper}>
+          <CardContent style={{padding: 0}}>
+            <Typography component="p" variant="p">
+              <b><u>Sponsor:</u></b> <br></br>
+                {bills.sponsor_name} ({bills.sponsor_party}) - {bills.sponsor_state} {bills.sponsor_title}
+              <Divider />
+              <b><u>Actions</u></b><br></br>
+              There have been {bill.actions ? <b>{bill.actions.length}</b> : ''} action(s)<br></br>
             <Divider />
             </Typography>
           </CardContent>
         </Card>
-      </Grid>
-      <Grid item  xs={8} sm={8} style={{height: "100%"}}> 
-        <Paper elevation={0} className={classes.paper} > 
-          <Typography Wrap className={classes.heading}>
-            <b><u>Summary</u></b> <br></br>
-            {bills.summary}
-          </Typography>
-        </Paper>
-      </Grid>
-      <Grid item xs={2} sm={2}>    
-        <Paper className={classes.paper}>
-        <Typography component="body2">
-          <b><u>Sponsor:</u></b> <br></br>
-            {bills.sponsor_name} ({bills.sponsor_party}) - {bills.sponsor_state} {bills.sponsor_title}
-          <Divider />
-          <b><u>Actions</u></b><br></br>
-          There have been {bill.actions ? <b>{bill.actions.length}</b> : ''} action(s)<br></br>
-        <Divider />
-        </Typography>
-        </Paper>
       </Grid>
     </Grid>
   )
