@@ -67,17 +67,17 @@ const Home = (props) => {
 
     <div className={"body"}>
    
-      <AppBar position={'inherit'} color={'white'} className={classes.grid} spacing={1} >
+      <AppBar position={'relative'} color={'transparent'} className={classes.grid} spacing={1} >
         <Toolbar disableGutters >
           <Grid container  >
-            <Grid item  xs={12} sm={3}className={classes.login}>
+            <Grid item  xs={3} className={classes.login}>
               <Signup  history={history}/>
               <LoginPage  history={history}/>
             </Grid>
-            <Grid item  xs={12} sm={6}  className={classes.header}>
+            <Grid item  xs={6} className={classes.header}>
                 <b><u>116th Congress</u></b>
             </Grid>
-            <Grid  xs={12} sm={2}  className={classes.profile} >
+            <Grid item  xs={3} className={classes.profile} >
               <Profile handleClose={handleClose} handleMenu={handleMenu} anchorEl={anchorEl} open={open} />
             </Grid>
           </Grid>
@@ -86,21 +86,21 @@ const Home = (props) => {
 
 
       <Grid container className={classes.grid} spacing={1} >
-          <Grid item xs={12} sm={3}>
+          <Grid item xs={12} sm={12} md={3} lg={3}>
               <Paper className={classes.header}><b><u>Senate</u></b><br></br></Paper>
                 <Suspense fallback={<div>Loading...</div>}  >     
                     <SenateComponent/>
                 </Suspense>   
           </Grid>
 
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12} sm={12} md={6} lg={6}>
             <Paper  className={classes.header}><b><u>Bills</u></b><br></br></Paper>
                 <Suspense fallback={<div>Loading...</div>}  >     
                     <BillsComponent/>
                 </Suspense>   
           </Grid>
           
-          <Grid item xs={12} sm={3}>
+          <Grid item xs={12} sm={12} md={3} lg={3}>
             <Paper className={classes.header}><b><u>House</u></b><br></br></Paper>
                 <Suspense fallback={<div>Loading...</div>}  >     
                     <HouseComponent/>

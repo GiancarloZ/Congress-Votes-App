@@ -41,8 +41,8 @@ const MemberStatements = (prop) => {
         <>
            {Object.keys(statements).length > 0 ? 
             <>
-               {statements.map(statement => (
-                   <MemberStatement statement={statement}/>
+               {statements.map((statement, id) => (
+                   <MemberStatement key={id} statement={statement}/>
                 ))}
             </>
             : <CircularProgress/>

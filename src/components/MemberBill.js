@@ -33,7 +33,7 @@ const MemberBill = (bill) => {
     <>
         <Card raised key={bill.bill.bill_id} className={classes.root}>
             <CardContent className={classes.content}>        
-            <Typography Wrap className={classes.heading}  variant="p">
+            <Typography  className={classes.heading}  variant="p">
             <b><u>{bill.bill.number}</u> </b><br></br>
             {dateConv(bill.bill.introduced_date)}<br></br>
             Co-sponsors:<br></br>

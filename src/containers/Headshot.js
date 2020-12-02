@@ -11,7 +11,7 @@ const Headshot = (prop) => {
    
     console.log(headshot)
     return (
-            <Avatar alt={prop.first_name}  src={headshot} />
+            <Avatar alt={prop.first_name}  src={headshot.toString()} />
     )
 }
 export default Headshot

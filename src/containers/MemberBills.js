@@ -37,8 +37,8 @@ const MemberBills = (prop) => {
     <>
         {Object.keys(bills).length > 0 ? 
            <>
-            {bills.map(bill => (
-                <MemberBill bill={bill}/>
+            {bills.map((bill, id )=> (
+                <MemberBill key={id} bill={bill}/>
             ))}
             {hasError ? hasError : null}
             </>  

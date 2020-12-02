@@ -80,7 +80,7 @@ const BillShow = ({bill, bills}) => {
       <Grid item  xs={8} sm={8} > 
         <Card elevation={0} className={classes.paper} > 
           <CardContent style={{padding: 0}}>
-          <Typography Wrap className={classes.heading}  variant="p">
+          <Typography className={classes.heading}  variant="p">
             <b><u>Summary</u></b> <br></br>
             {bills.summary}
           </Typography>

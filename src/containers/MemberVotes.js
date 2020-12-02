@@ -37,8 +37,8 @@ const MemberVotes = (prop) => {
         <>
             {Object.keys(votes).length > 0 ?
                <> 
-               {votes.map(vote => (
-                   <MemberVote vote={vote}/>
+               {votes.map((vote, id) => (
+                   <MemberVote key={id} vote={vote}/>
                     ))}
                 </>
                 : <CircularProgress/>

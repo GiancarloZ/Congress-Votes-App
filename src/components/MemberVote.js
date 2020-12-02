@@ -13,7 +13,7 @@ const MemberVote = (vote) => {
 
     return (
         <Paper key={vote.vote.bill.bill_id} className={classes.root}>
-        <Typography Wrap className={classes.heading}  variant="p">
+        <Typography className={classes.heading}  variant="p">
         {vote.vote.bill.number}: <b> {vote.vote.position}</b><br></br>
         Result: {vote.vote.result} <br></br>
         (Y: {vote.vote.total.yes} N: {vote.vote.total.no} NV: {vote.vote.total.not_voting})
