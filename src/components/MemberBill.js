@@ -41,7 +41,6 @@ const MemberBill = (bill) => {
             R: {bill.bill.cosponsors_by_party.R ? bill.bill.cosponsors_by_party.R : 0} 
             </Typography>
             </CardContent>
-
         </Card>
     </>
     )

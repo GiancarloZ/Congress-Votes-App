@@ -103,8 +103,7 @@ const BillDetails = ({bill, bills}) => {
                     <CardContent style={{ paddingBottom: 0, padding: 0, margin: 0}}>
                       <Typography component="p"  variant="p" >
                       <b><u>{action.chamber} Action</u></b> <br></br>
-                      <p>{action.action_type}</p>
-                      {dateConv(action.datetime)}
+                      <p>{action.action_type}</p> {dateConv(action.datetime)}
                       <p>{action.description}</p>
                       </Typography>
                       </CardContent>

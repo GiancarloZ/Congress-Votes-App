@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import MemberVote from '../components/MemberVote'
 import config from '../config'
+import {CircularProgress} from "@material-ui/core"
 
 const myHeaders = {
     'X-API-Key': config.PP_KEY
@@ -34,15 +35,15 @@ const MemberVotes = (prop) => {
 
     return (
         <>
-            {Object.keys(votes).length > 0 &&  
+            {Object.keys(votes).length > 0 ?
                <> 
                {votes.map(vote => (
                    <MemberVote vote={vote}/>
                     ))}
                 </>
-       
+                : <CircularProgress/>
             }
-           
+            {hasError ? hasError : null}
         </>
     )
 

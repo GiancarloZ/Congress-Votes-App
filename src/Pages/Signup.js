@@ -13,7 +13,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 const Signup = props => {
-  const {match, history } = props;
+  const { history } = props;
   // initializing dispatch
   const dispatch = useDispatch();
   const user = useSelector(state => state.currentUser.username) || false;
@@ -29,7 +29,6 @@ const Signup = props => {
     
   const handleSubmit = e => {
     e.preventDefault();
-    const { history } = props;
     dispatch(userActions.newUserToDB(signupForm));
     setOpen(false);
     history.push('/home')

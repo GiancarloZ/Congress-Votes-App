@@ -1,14 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import config from '../config'
-
 import { makeStyles } from '@material-ui/core/styles';
-import { withStyles } from '@material-ui/core/styles';
-import {Accordion, Paper, Typography, List, ListItem} from '@material-ui/core';
-import AccordionSummary from '@material-ui/core/AccordionSummary';
-import AccordionDetails from '@material-ui/core/AccordionDetails';
-import Grid from '@material-ui/core/Grid'
-import Button from '@material-ui/core/Button';
-
+import {Accordion, AccordionSummary, AccordionDetails, Grid, Paper, Typography, List, ListItem} from '@material-ui/core';
 import Headshot from '../containers/Headshot'
 import MemberVotes from '../containers/MemberVotes'
 import MemberStatements from '../containers/MemberStatements'
@@ -48,7 +41,6 @@ const useStyles = makeStyles((theme) => ({
         display: "none"
       }
     },
-    // expanded: {display: "none"},
     sum: {
       height: "100%",
       textAlign: 'flex-start'
@@ -143,10 +135,10 @@ const MemberInfo = (prop) => {
               {Object.keys(member).length > 0 &&  
                 <Grid container className={classes.add} spacing={1} >  
                   <Grid container className={classes.add} spacing={1} > 
-                    <Grid item className={classes.add} xs={12} sm={8}>  
+                    <Grid item className={classes.add} xs={8} sm={8}>  
                     <Paper style={{textAlign: 'flex-start'}}>    
                     <Typography Wrap className={classes.heading}  variant="p">                               
-                          <a href={membs.url} target="_blank" >Homepage</a><br></br>
+                          <a href={membs.url} target="_blank" rel="noreferrer">Homepage</a><br></br>
                           <b>Address:</b> {member['roles'][0]['office']}<br></br>
                           <b>Phone:</b> {member['roles'][0]['phone']}<br></br>
                           <b>Current Role:</b> {member['roles'][0]['title']} {member['roles'][0]['congress']} - {member['roles'][0]['state']} {member['roles'][0]['district']}
@@ -154,7 +146,7 @@ const MemberInfo = (prop) => {
                       </Paper>
                     </Grid>
                   
-                    <Grid item xs={12} sm={4}className={classes.grid} >            
+                    <Grid item xs={4} sm={4} className={classes.grid} >            
                       <Paper className={classes.vote}>
                       <Typography Wrap className={classes.heading}  variant="p">
                       <div className={classes.grid}><b><u>Vote %</u></b><br></br></div>

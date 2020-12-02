@@ -73,7 +73,7 @@ const HouseMembers = () => {
               
                 multiple
                 limitTags={2}
-                id="multiple-limit-tags"
+                id="HouseMemebers"
                 options={members || []}
                 getOptionLabel={(option) => option.last_name +", " + option.first_name + " " + " " + "(" + option.party + ")" + "-" + option.state + " " }
                 defaultValue={members}

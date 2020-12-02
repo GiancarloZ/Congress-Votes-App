@@ -1,18 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import config from '../config'
-
-import { makeStyles, withStyles } from '@material-ui/core/styles';
-// import { withStyles } from '@material-ui/core/styles';
-import {Accordion, Card, List} from '@material-ui/core';
-import AccordionDetails from '@material-ui/core/AccordionDetails';
-import AccordionSummary from '@material-ui/core/AccordionSummary';
-
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import Grid from '@material-ui/core/Grid'
-import Button from '@material-ui/core/Button';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography'
-import Divider from '@material-ui/core/Divider';
+import { makeStyles } from '@material-ui/core/styles';
+import {Accordion, AccordionDetails, AccordionSummary, Grid} from '@material-ui/core';
 import BillShow from '../components/BillShow'
 import BillDetails from '../components/BillDetails'
 
@@ -30,39 +19,22 @@ const myInit = {
 const useStyles = makeStyles((theme) => ({
   root: {
     textAlign: "center"
-    // overflow: "hidden", 
-    // textOverflow: "ellipsis",
-    //   '&$expanded': {
-    //     overflow: "scroll", textOverflow: "inherit",
-    //   },
-    //   expanded: {},
   },
   
   summary:{
     alignItems: "center",
     maxHeight: 275,  
     padding: 2
-    // fontSize: 16
-    // textOverflow: "ellipsis",
-    // '&$expanded':{
-    //   overflow: "scroll",
-    //   textOverflow: "inherit"
-    // },
-    
   },
   expanded: {},
   details: {
     height: 400,
     padding: 2
   },
-  paper: {
-    // alignItems: "center",
-  },
+
   heading: {
     overflow: "auto", 
-    // textOverflow: "ellipsis", 
     height: '100%',
-    // maxHeight: 195,
     '&::-webkit-scrollbar': {
       width: '0.1em'
     },
@@ -94,9 +66,6 @@ const useStyles = makeStyles((theme) => ({
   
 }));
 
-
-
-
 const BillInfo = (prop) => {
     const [id, setId] = useState(prop['props']['bill_slug'])
     const [hasError, setErrors] = useState(false)
@@ -120,16 +89,7 @@ const BillInfo = (prop) => {
     useEffect(() => {
         fetchBill();
     }, []);
-    
-    const dateConv = (date) => {
-        let dateTime = date.split("-")
-        let year = dateTime[0]
-        let day = dateTime[2]
-        let month = dateTime[1]
-        
-        let newDate = month + "-" + day + "-" + year
-        return newDate
-    }
+
     return (
       <Accordion key={bill['bill_id']} className={classes.root}  >
         <AccordionSummary
@@ -138,16 +98,12 @@ const BillInfo = (prop) => {
           className={classes.summary}   
         >
           <Grid container spacing={1}> 
-            <Typography component="p" variant="p">
               <BillShow bill={bill} bills={bills}/>
-              </Typography>
           </Grid> 
         </AccordionSummary>
         <AccordionDetails className={classes.details}>
           <Grid container  spacing={1}>  
-          <Typography component="p" variant="p">
             <BillDetails bill={bill} bills={bills}/>
-          </Typography>
           </Grid> 
         </AccordionDetails>
       </Accordion>

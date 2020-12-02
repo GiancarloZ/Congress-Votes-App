@@ -53,7 +53,7 @@ const Bills = () => {
                     type: "ADD_BILLS",
                     bills: res['results'][0]['bills']
                 }))
-                .catch(error => console.log(error)
+                .catch(error => setErrors(error)
                 );
             }
     }
@@ -100,6 +100,7 @@ const Bills = () => {
             return <BillInfo props={bills}/>
         })
         }
+        {hasError ? hasError : null}
         </div>
     </>
      

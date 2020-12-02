@@ -1,6 +1,6 @@
-import React, { useState, useEffect, Suspense } from 'react';
+import React, {Suspense } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import {Paper, Grid, AppBar, Toolbar, Typography} from '@material-ui/core';
+import {Paper, Grid, AppBar, Toolbar} from '@material-ui/core';
 
 
 import Signup from './Signup';
@@ -29,8 +29,7 @@ const useStyles = makeStyles((theme) => ({
     alignSelf: 'center'
   },
   grid: {
-    // padding: 1,
-    display: "flex",
+    padding: 1,
     width: "100%",
   },
   login: {
@@ -53,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Home = (props) => {
   const classes = useStyles();
-  const {match, history } = props;
+  const { history } = props;
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
 

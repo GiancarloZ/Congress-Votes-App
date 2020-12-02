@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState} from 'react';
 import { useDispatch } from 'react-redux';
 import userActions from '../reducers/userActions';
 import Button from "@material-ui/core/Button";
 import ButtonGroup from '@material-ui/core/ButtonGroup';
-import { makeStyles } from "@material-ui/core/styles";
 import { useSelector } from 'react-redux';
 import Input from '@material-ui/core/Input';
 import Dialog from '@material-ui/core/Dialog';
@@ -11,22 +10,9 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-const useStyles = makeStyles(theme => ({
-    // root:{
-    //   minHeight: "100%",
-    //   minWidth: "auto",
-    //   display: "flex",
-    // },
-    // paper: {
-    //     padding: theme.spacing(0),
-    //     margin: 0,
-    //     minWidth: "100%",
-    //     minHeight: "100%",
-    // }
-}))
+
 const LoginPage = props => {
-  const {match, history } = props;
-  const classes = useStyles();
+  const {history } = props;
   // initializing dispatch
   const dispatch = useDispatch();
   const user = useSelector(state => state.currentUser.username) || false;

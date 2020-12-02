@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import config from '../config'
 import MemberStatement from '../components/MemberStatement';
+import {CircularProgress} from "@material-ui/core"
 
 const myHeaders = {
     'X-API-Key': config.PP_KEY
@@ -38,13 +39,15 @@ const MemberStatements = (prop) => {
  
     return (
         <>
-           {Object.keys(statements).length > 0 &&  
+           {Object.keys(statements).length > 0 ? 
             <>
                {statements.map(statement => (
                    <MemberStatement statement={statement}/>
                 ))}
             </>
+            : <CircularProgress/>
             } 
+            {hasError ? hasError : null}
         </>
     )
 
