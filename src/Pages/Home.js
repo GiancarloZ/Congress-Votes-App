@@ -1,7 +1,7 @@
 import React, {Suspense } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import {Paper, Grid, AppBar, Toolbar} from '@material-ui/core';
-
+import {Paper, Grid, AppBar, Toolbar, Button} from '@material-ui/core';
+import { Link, useLocation } from "react-router-dom";
 
 import Signup from './Signup';
 import LoginPage from './Login';
@@ -55,11 +55,11 @@ const Home = (props) => {
   const { history } = props;
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+  const location = useLocation();
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
-
   const handleClose = () => {
     setAnchorEl(null);
   };
@@ -72,13 +72,21 @@ const Home = (props) => {
           <Grid container  >
             <Grid item  xs={3} className={classes.login}>
               <Signup  history={history}/>
-              <LoginPage  history={history}/>
+              {/* <Link
+                to={{
+                  pathname: "/login",
+                  state: { background: location }
+                }}
+              > */}
+                 {/* <Button>Login</Button> */}
+                <LoginPage  history={history}/>
+              {/* </Link> */}
             </Grid>
             <Grid item  xs={6} className={classes.header}>
                 <b><u>116th Congress</u></b>
             </Grid>
             <Grid item  xs={3} className={classes.profile} >
-              <Profile handleClose={handleClose} handleMenu={handleMenu} anchorEl={anchorEl} open={open} />
+              <Profile handleClose={handleClose} history={history} handleMenu={handleMenu} anchorEl={anchorEl} open={open} />
             </Grid>
           </Grid>
         </Toolbar>

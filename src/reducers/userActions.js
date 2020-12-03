@@ -1,6 +1,6 @@
 // API CONSTANTS
 
-const BASE_URL = 'http://localhost:3001/api/v1/';
+const BASE_URL = 'http://localhost:3001/api/v1';
 const HEROKU_URL = "https://congress-votes-rails-api.herokuapp.com/api/v1"
 const USERS_URL = BASE_URL + '/users';
 const SPECIFIC_USER_URL = id => USERS_URL + '/' + id;
@@ -30,7 +30,7 @@ const loadAllUsers = () => dispatch => {
       'Content-Type': 'application/json'
     },
   };
-  fetch(HEROKU_URL + '/users', config)
+  fetch(BASE_URL + '/users', config)
     .then(r => r.json())
     .then(data => {
         console.log(data)
@@ -47,7 +47,7 @@ const newUserToDB = userObj => dispatch => {
     },
     body: JSON.stringify(userObj)
   };
-  fetch(HEROKU_URL + '/users', config)
+  fetch(BASE_URL + '/users', config)
     .then(r => r.json())
     .then(data => {
       dispatch(setUserAction(data.user));
@@ -74,7 +74,7 @@ const loginUserToDB = userCredentials => dispatch => {
     },
     body: JSON.stringify(userCredentials)
   };
-  fetch(HEROKU_URL + '/login', config)
+  fetch(BASE_URL + '/login', config)
     .then(r => r.json())
     .then(data => {
       dispatch(setUserAction(data.user));
@@ -89,7 +89,7 @@ const persistUser = () => dispatch => {
       Authorization: `bearer ` + localStorage.token
     }
   };
-  fetch(HEROKU_URL + '/persist', config)
+  fetch(BASE_URL + '/persist', config)
     .then(r => r.json())
     .then(userInstance => {
       dispatch(setUserAction(userInstance));

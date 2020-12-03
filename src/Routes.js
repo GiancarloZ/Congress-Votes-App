@@ -2,16 +2,17 @@ import React from 'react'
 import {Route, Redirect} from 'react-router-dom'
 import Home from './Pages/Home'
 import Login from './Pages/Login'
-import Signup from './Pages/Signup'
-
+import Share from './Pages/Share'
+import Profile from './Pages/Profile'
 
 const Routes = () => {
     return (
         <>
         <Redirect exact from="/" to="/home"  />
         <Route exact path="/home" render={props => <Home {...props}/>}/> 
-        <Route exact path="/login" render={props => <Login {...props} />} />
-        <Route exact path="/signup" render={props => <Signup {...props} />} />     
+        {/* <Route path="/login" component={Login}/> */}
+        <Route exact path="/profile" render={props => <Profile {...props} />} />     
+        <Route exact path="/share" render={props => <Share {...props} />} />     
         </>
     )
 }

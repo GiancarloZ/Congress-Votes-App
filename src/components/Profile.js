@@ -4,9 +4,17 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-
+import {Switch, useLocation, Route, useHistory} from 'react-router-dom'
 const Profile = props => {
     const { handleMenu, anchorEl, handleClose, open } = props;
+    const history = useHistory()
+    const handleClick = () => {
+      history.push("/profile")
+    }
+    const handleClickShare = () => {
+      history.push("/share")
+    }
+    console.log(props)
     return (
         <div>
               <IconButton
@@ -33,8 +41,8 @@ const Profile = props => {
                 open={open}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
-                <MenuItem onClick={handleClose}>My account</MenuItem>
+                <MenuItem onClick={handleClick}>Profile</MenuItem>
+                <MenuItem onClick={handleClickShare}>Share</MenuItem>
               </Menu>
             </div>
     )
