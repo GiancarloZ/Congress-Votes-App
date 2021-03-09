@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import config from '../config'
 import { makeStyles } from '@material-ui/core/styles';
-import {Accordion, AccordionSummary, AccordionDetails, Grid, Paper, Typography, List, ListItem} from '@material-ui/core';
+import {Accordion, AccordionSummary, AccordionDetails, Grid, Paper, Typography, List, ListItem, Button} from '@material-ui/core';
 import Headshot from '../containers/Headshot'
 import MemberVotes from '../containers/MemberVotes'
 import MemberStatements from '../containers/MemberStatements'
@@ -86,7 +86,17 @@ const MemberInfo = (prop) => {
     const [hasError, setErrors] = useState(false)
     const [member, setMember] = useState([])
     const membs = prop['props']
-
+    const [vote, setVote] = useState(0)
+    const [click, setClick] = useState(true)
+    const handleClick = () => {
+      if (click) {
+        setVote( vote + 1)   
+        setClick(!click) 
+      } else {
+        setVote(vote - 1)
+        setClick(!click) 
+      } 
+    }
     console.log(id)
     console.log(prop)
     console.log(member)
@@ -126,6 +136,10 @@ const MemberInfo = (prop) => {
               <Typography className={classes.heading}  variant="inherit">
                 <b>Next <u>Election</u> {membs['next_election']}</b>
                 </Typography>
+                <Button onClick={handleClick} color="primary">
+                  Vote: {vote}
+                </Button>
+
               </Grid>    
             </Grid>
             </AccordionSummary>
